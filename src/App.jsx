@@ -144,54 +144,46 @@ const steps = [
   },
 ]
 
-const projects = [
+const sourcingGallery = [
   {
-    id: '01',
-    client: 'European Online Store',
-    title: 'Jewelry + Hair Accessories + Lifestyle Products',
-    tags: [
-      'Multiple product categories',
-      'Supplier sourcing',
-      'Product quality verification',
-      'Repeat sourcing support',
-      'Consolidated purchasing',
-    ],
+    title: 'Custom Jewelry & Packaging',
+    caption: 'Private-label jewelry and branded retail packaging',
   },
   {
-    id: '02',
-    client: 'European Jewelry Brand',
-    title: 'Custom Fashion Jewelry + Packaging',
-    tags: [
-      'Custom product development',
-      'Material and finish coordination',
-      'Custom branded jewelry boxes',
-      'Sampling',
-      'Bulk production coordination',
-    ],
+    title: 'Baby Silicone Products',
+    caption: 'Custom colours, branding and packaging',
   },
   {
-    id: '03',
-    client: 'Australian Amazon Seller',
-    title: 'Pet Toys + Kids Yoga Mat + Kitchen Product',
-    tags: [
-      'Multiple suppliers',
-      'Product sourcing',
-      'Amazon barcode labelling',
-      'Shipment consolidation',
-      'Sea vs air freight comparison',
-    ],
+    title: 'Hair & Lifestyle Accessories',
+    caption: 'Products sourced for European online retailers',
   },
   {
-    id: '04',
-    client: 'Baby Products Brand',
-    title: 'Silicone Feeding Products',
-    tags: [
-      'Low-MOQ initial sourcing',
-      'Custom colours',
-      'Logo branding',
-      'Packaging development',
-      'Quality inspection',
-    ],
+    title: 'Pet Products',
+    caption: 'Multi-product sourcing and supplier coordination',
+  },
+  {
+    title: 'Custom Retail Packaging',
+    caption: 'Branded boxes, pouches and retail packaging',
+  },
+  {
+    title: 'Quality Inspection',
+    caption: 'Finished goods checked before shipment',
+  },
+  {
+    title: 'Shipment Consolidation',
+    caption: 'Products from multiple suppliers prepared together',
+  },
+  {
+    title: 'Export Cartons',
+    caption: 'Finished orders packed and ready for shipment',
+  },
+  {
+    title: 'Product Labelling',
+    caption: 'Barcode, EAN and shipment labelling support',
+  },
+  {
+    title: 'Mixed Product Sourcing',
+    caption: 'Different product categories managed through one purchasing team',
   },
 ]
 
@@ -694,31 +686,28 @@ export default function App() {
         <section className="section projects" id="projects">
           <div className="wrap">
             <Reveal className="section-head">
-              <span className="eyebrow">Recent projects</span>
-              <h2>Real Sourcing Projects We&apos;ve Supported</h2>
-              <p>Different products. Different suppliers. One team in China coordinating the work.</p>
+              <span className="eyebrow">Real sourcing work</span>
+              <h2>Our Sourcing Gallery</h2>
+              <p>
+                A look at products, packaging and shipments we&apos;ve handled for clients sourcing
+                from China.
+              </p>
             </Reveal>
-            <div className="project-grid">
-              {projects.map((project) => (
-                <Reveal className="project project-card-photo" key={project.id}>
-                  <div className="project-photo-placeholder" aria-hidden="true">
-                    <span>Project photo</span>
+            <div className="gallery-grid">
+              {sourcingGallery.map((item) => (
+                <Reveal className="gallery-item" key={item.title}>
+                  <div className="gallery-placeholder" role="img" aria-label={item.title}>
+                    <span>{item.title}</span>
                   </div>
-                  <p className="project-region">Project {project.id}</p>
-                  <p className="project-client">{project.client}</p>
-                  <h3>{project.title}</h3>
-                  <ul>
-                    {project.tags.map((tag) => (
-                      <li key={tag}>{tag}</li>
-                    ))}
-                  </ul>
+                  <p className="gallery-caption">{item.caption}</p>
                 </Reveal>
               ))}
             </div>
             <Reveal className="projects-cta">
-              <p>Have a similar sourcing requirement?</p>
+              <p>Real products. Real packaging. Real shipments handled by our team in China.</p>
+              <p>Have Something Similar to Source?</p>
               <a className="btn btn-primary" href="#consult">
-                Discuss Your Project With Us
+                Get a Free Sourcing Consultation
               </a>
             </Reveal>
           </div>
