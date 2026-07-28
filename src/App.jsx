@@ -699,12 +699,6 @@ export default function App() {
           </div>
         </section>
 
-        <MidCta
-          variant="light"
-          label="Request Product Pricing"
-          text="Stop managing suppliers alone — send us your enquiry and we will take it from there."
-        />
-
         <section className="section why" id="why-nexofetch">
           <div className="wrap">
             <Reveal className="section-head">
@@ -796,12 +790,6 @@ export default function App() {
           </div>
         </section>
 
-        <MidCta
-          variant="light"
-          label="Get Free Sourcing Consultation"
-          text="Have a similar project? Submit an enquiry and we will review your requirements."
-        />
-
         <section className="section trust" id="trust">
           <div className="wrap">
             <Reveal className="section-head">
@@ -818,12 +806,6 @@ export default function App() {
             </div>
           </div>
         </section>
-
-        <MidCta
-          variant="soft"
-          label="Talk to a Sourcing Expert"
-          text="Speak with our team about how we can support your next sourcing project."
-        />
 
         <section className="section europe" id="european-importers">
           <div className="wrap">
@@ -875,12 +857,6 @@ export default function App() {
             </Reveal>
           </div>
         </section>
-
-        <MidCta
-          variant="light"
-          label="Request Supplier Verification"
-          text="Need documentation coordinated for your product category? Send us an enquiry."
-        />
 
         <section className="section compare" id="compare">
           <div className="wrap">
@@ -1015,12 +991,6 @@ export default function App() {
             </Reveal>
           </div>
         </section>
-
-        <MidCta
-          variant="soft"
-          label="Request Product Pricing"
-          text="Review the fee structure, then send your enquiry and we will prepare the next steps."
-        />
 
         <section className="section final" id="consult">
           <div className="wrap final-grid">
