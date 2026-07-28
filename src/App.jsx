@@ -293,21 +293,61 @@ const valueProps = [
 
 const trustBlocks = [
   {
-    title: 'On-the-ground support in China',
-    text: 'We communicate directly with suppliers, follow production and coordinate issues locally — giving overseas buyers a team closer to the factories.',
+    title: 'Verified Manufacturers',
+    text: 'You work with suppliers that have been checked for capability and reliability before placing an order.',
   },
   {
-    title: 'Multiple categories, one partner',
-    text: 'You do not need a different sourcing company for every product. We help clients source across jewelry, accessories, packaging, baby, pet and lifestyle categories.',
+    title: 'Transparent Communication',
+    text: 'You stay informed at every stage — from quotations and samples through production and shipment — without chasing factories yourself.',
   },
   {
-    title: 'Independent quality checks',
-    text: 'We do not simply rely on the supplier saying the goods are ready. Quality inspection can be arranged before shipment so problems can be identified before products leave China.',
+    title: 'Independent Quality Checks',
+    text: 'You can have finished goods inspected before shipment, so problems are caught before products leave China.',
   },
   {
-    title: 'Clear communication',
-    text: 'You receive straightforward updates throughout quotations, sampling, production, inspection, consolidation and shipping.',
+    title: 'Custom Manufacturing Support',
+    text: 'You can develop private-label products, custom packaging and branding without managing factories on your own.',
   },
+  {
+    title: 'Shipping Coordination',
+    text: 'Your order is organised from consolidation to international delivery, so you are not left handling logistics alone.',
+  },
+]
+
+const europeanImporterCards = [
+  {
+    title: 'Supplier Verification',
+    text: 'We check supplier legitimacy, production capability and communication reliability before you commit to an order.',
+  },
+  {
+    title: 'Factory Audits',
+    text: 'Where required, we help arrange factory checks so you understand how and where your products will be made.',
+  },
+  {
+    title: 'Quality Inspection',
+    text: 'Finished goods can be inspected before shipment, so quality issues are identified before products leave China.',
+  },
+  {
+    title: 'CE / REACH / RoHS Support',
+    text: 'We help coordinate documentation and supplier requirements relevant to European compliance expectations.',
+  },
+  {
+    title: 'Shipping & Customs Coordination',
+    text: 'We support shipping arrangements and help organise the documents needed for smoother international delivery.',
+  },
+  {
+    title: 'Clear Communication Throughout Production',
+    text: 'You receive clear updates from quotation and sampling through production, inspection and shipment.',
+  },
+]
+
+const complianceSupport = [
+  'CE Documentation',
+  'RoHS',
+  'REACH',
+  'Packaging Requirements',
+  'Product Documentation',
+  'Import Documentation',
 ]
 
 const compareSelf = [
@@ -426,6 +466,19 @@ function Reveal({ as: Tag = 'div', className = '', children }) {
     <Tag ref={ref} className={`reveal ${className}`.trim()}>
       {children}
     </Tag>
+  )
+}
+
+function MidCta({ label, text, variant = 'soft' }) {
+  return (
+    <section className={`mid-cta mid-cta-${variant}`} aria-label="Call to action">
+      <div className="wrap mid-cta-inner">
+        <p>{text}</p>
+        <a className="btn btn-primary" href="#consult">
+          {label}
+        </a>
+      </div>
+    </section>
   )
 }
 
@@ -573,6 +626,12 @@ export default function App() {
           </div>
         </section>
 
+        <MidCta
+          variant="soft"
+          label="Get Free Sourcing Consultation"
+          text="Tell us about your brand and the products you want to source from China."
+        />
+
         <section className="section products" id="products">
           <div className="wrap">
             <Reveal className="section-head">
@@ -604,6 +663,12 @@ export default function App() {
           </div>
         </section>
 
+        <MidCta
+          variant="dark"
+          label="Talk to a Sourcing Expert"
+          text="Share the categories you need and we will recommend suitable next steps."
+        />
+
         <section className="section pain" id="problems">
           <div className="wrap pain-layout">
             <Reveal>
@@ -634,6 +699,12 @@ export default function App() {
           </div>
         </section>
 
+        <MidCta
+          variant="light"
+          label="Request Product Pricing"
+          text="Stop managing suppliers alone — send us your enquiry and we will take it from there."
+        />
+
         <section className="section why" id="why-nexofetch">
           <div className="wrap">
             <Reveal className="section-head">
@@ -662,6 +733,12 @@ export default function App() {
           </div>
         </section>
 
+        <MidCta
+          variant="soft"
+          label="Request Supplier Verification"
+          text="Tell us what you need handled and we will explain how we can support your project."
+        />
+
         <section className="section process" id="process">
           <div className="wrap">
             <Reveal className="section-head">
@@ -682,6 +759,12 @@ export default function App() {
             </Reveal>
           </div>
         </section>
+
+        <MidCta
+          variant="dark"
+          label="Start Your Sourcing Project"
+          text="Ready to begin? Send your requirements and we will outline the first sourcing steps."
+        />
 
         <section className="section projects" id="projects">
           <div className="wrap">
@@ -713,13 +796,19 @@ export default function App() {
           </div>
         </section>
 
+        <MidCta
+          variant="light"
+          label="Get Free Sourcing Consultation"
+          text="Have a similar project? Submit an enquiry and we will review your requirements."
+        />
+
         <section className="section trust" id="trust">
           <div className="wrap">
             <Reveal className="section-head">
               <span className="eyebrow">Why work with us</span>
               <h2>Why Growing Brands Use Nexofetch as Their China Purchasing Team</h2>
             </Reveal>
-            <div className="trust-grid trust-grid-4">
+            <div className="trust-grid">
               {trustBlocks.map((item) => (
                 <Reveal className="trust-item" key={item.title}>
                   <h3>{item.title}</h3>
@@ -729,6 +818,69 @@ export default function App() {
             </div>
           </div>
         </section>
+
+        <MidCta
+          variant="soft"
+          label="Talk to a Sourcing Expert"
+          text="Speak with our team about how we can support your next sourcing project."
+        />
+
+        <section className="section europe" id="european-importers">
+          <div className="wrap">
+            <Reveal className="section-head">
+              <span className="eyebrow">For European buyers</span>
+              <h2>Built for European Importers</h2>
+            </Reveal>
+            <div className="europe-grid">
+              {europeanImporterCards.map((item) => (
+                <Reveal className="europe-card" key={item.title}>
+                  <h3>{item.title}</h3>
+                  <p>{item.text}</p>
+                </Reveal>
+              ))}
+            </div>
+            <Reveal className="europe-note">
+              <p>
+                We help European businesses reduce sourcing risks while keeping projects organised
+                from supplier selection to final delivery.
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
+        <MidCta
+          variant="dark"
+          label="Request Product Pricing"
+          text="Ask us how we can support your European import requirements."
+        />
+
+        <section className="section compliance" id="compliance">
+          <div className="wrap">
+            <Reveal className="section-head">
+              <span className="eyebrow">Documentation</span>
+              <h2>Compliance &amp; Documentation Support</h2>
+            </Reveal>
+            <Reveal className="compliance-grid">
+              {complianceSupport.map((item) => (
+                <div className="compliance-item" key={item}>
+                  {item}
+                </div>
+              ))}
+            </Reveal>
+            <Reveal className="compliance-disclaimer">
+              <p>
+                Compliance requirements depend on the product category and manufacturer. Nexofetch
+                assists customers in coordinating the required documentation.
+              </p>
+            </Reveal>
+          </div>
+        </section>
+
+        <MidCta
+          variant="light"
+          label="Request Supplier Verification"
+          text="Need documentation coordinated for your product category? Send us an enquiry."
+        />
 
         <section className="section compare" id="compare">
           <div className="wrap">
@@ -760,6 +912,12 @@ export default function App() {
           </div>
         </section>
 
+        <MidCta
+          variant="soft"
+          label="Start Your Sourcing Project"
+          text="Prefer one purchasing partner in China? Tell us what you want to source."
+        />
+
         <section className="section faq" id="faq">
           <div className="wrap">
             <Reveal className="section-head">
@@ -777,6 +935,12 @@ export default function App() {
             </Reveal>
           </div>
         </section>
+
+        <MidCta
+          variant="dark"
+          label="Get Free Sourcing Consultation"
+          text="Still have questions? Send your product details and we will reply with clear next steps."
+        />
 
         <section className="section testimonials" id="testimonials">
           <div className="wrap">
@@ -799,6 +963,12 @@ export default function App() {
             </div>
           </div>
         </section>
+
+        <MidCta
+          variant="light"
+          label="Talk to a Sourcing Expert"
+          text="Join brands already sourcing with Nexofetch — submit your enquiry today."
+        />
 
         <section className="section fees" id="fees">
           <div className="wrap fees-inner">
@@ -845,6 +1015,12 @@ export default function App() {
             </Reveal>
           </div>
         </section>
+
+        <MidCta
+          variant="soft"
+          label="Request Product Pricing"
+          text="Review the fee structure, then send your enquiry and we will prepare the next steps."
+        />
 
         <section className="section final" id="consult">
           <div className="wrap final-grid">
