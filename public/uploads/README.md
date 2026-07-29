@@ -1,28 +1,51 @@
 # Upload your images here
 
-## Hero mosaic (6 images)
-Put files in `hero/` with these exact names:
+## Hero mosaic
+Put files in `hero/` (JPG or PNG).
 
-1. `01-plush-teddy.jpg` — Plush toy / teddy bear
-2. `02-stainless-steel-jewelry.jpg` — Stainless steel jewelry (Steelaura style)
-3. `03-jewelry-boxes.jpg` — Small jewelry boxes with logo
-4. `04-baby-silicone-feeding.jpg` — Silicone feeding sets for baby
-5. `05-dog-toy.jpg` — Dog toy
-6. `06-travel-pouch.jpg` — Small travel pouch for women
+## Product cards
+Put files in `products/` (JPG or PNG).
 
-## Product cards (optional)
-Put files in `products/` with these names:
+## Sourcing Gallery slideshows
+Each gallery tile can show **up to 8 photos** that rotate every ~3.5 seconds.
 
-- `jewelry.jpg`
-- `hair-accessories.jpg`
-- `gift-packaging.jpg`
-- `pet-accessories.jpg`
-- `baby-products.jpg`
-- `lifestyle-accessories.jpg`
-- `plush-toys.jpg`
+Upload into this folder:
 
-## Tips
-- JPG or PNG both work
-- Prefer landscape photos (about 1200×900 or similar)
+`public/uploads/gallery/`
+
+### Folder map
+
+| Gallery tile | Upload folder |
+|---|---|
+| Custom Jewelry & Packaging | `gallery/jewelry-packaging/` |
+| Baby Silicone Products | `gallery/baby-silicone/` |
+| Hair & Lifestyle Accessories | `gallery/hair-lifestyle/` |
+| Pet Products | `gallery/pet-products/` |
+| Jewelry Gift Box | `gallery/jewelry-gift-box/` |
+| Quality Inspection | `gallery/quality-inspection/` |
+| Shipment Consolidation | `gallery/shipment-consolidation/` |
+| Export Cartons | `gallery/export-cartons/` |
+| Mixed Product Sourcing | `gallery/mixed-sourcing/` |
+
+### File names (important)
+
+Inside each folder, use these exact names:
+
+- `01.jpg` (or `.png` / `.webp`)
+- `02.jpg`
+- `03.jpg`
+- `04.jpg`
+- `05.jpg`
+- `06.jpg`
+- `07.jpg`
+- `08.jpg`
+
+You can upload 1–8 images per folder.
+- 1 image = static photo
+- 2–8 images = auto slideshow
+
+### Tips
+- Prefer real sourcing / packaging / shipment photos
+- Landscape works best (about 1200×900)
 - Keep each file under ~2MB if possible
-- After uploading, tell me “images are ready” and I will connect them to the page
+- After uploading, refresh the page — photos appear automatically

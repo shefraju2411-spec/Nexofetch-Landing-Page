@@ -147,45 +147,59 @@ const steps = [
 const sourcingGallery = [
   {
     title: 'Custom Jewelry & Packaging',
-    caption: 'Private-label jewelry and branded retail packaging',
+    caption: 'Premium quality Fashion jewelry with branded packaging',
+    folder: 'jewelry-packaging',
   },
   {
     title: 'Baby Silicone Products',
-    caption: 'Custom colours, branding and packaging',
+    caption: 'Baby Silicone Products',
+    folder: 'baby-silicone',
   },
   {
     title: 'Hair & Lifestyle Accessories',
-    caption: 'Products sourced for European online retailers',
+    caption: 'Hair accessories',
+    folder: 'hair-lifestyle',
   },
   {
     title: 'Pet Products',
-    caption: 'Multi-product sourcing and supplier coordination',
+    caption: 'Dog Products',
+    folder: 'pet-products',
   },
   {
-    title: 'Custom Retail Packaging',
-    caption: 'Branded boxes, pouches and retail packaging',
+    title: 'Jewelry Gift Box',
+    caption: 'Gift Boxes for Jewelry',
+    folder: 'jewelry-gift-box',
   },
   {
     title: 'Quality Inspection',
-    caption: 'Finished goods checked before shipment',
+    caption: 'Jewelry packaging boxes',
+    folder: 'quality-inspection',
   },
   {
     title: 'Shipment Consolidation',
-    caption: 'Products from multiple suppliers prepared together',
+    caption: 'Products from multiple suppliers, consolidated and Quality Inspection done',
+    folder: 'shipment-consolidation',
   },
   {
     title: 'Export Cartons',
     caption: 'Finished orders packed and ready for shipment',
-  },
-  {
-    title: 'Product Labelling',
-    caption: 'Barcode, EAN and shipment labelling support',
+    folder: 'export-cartons',
   },
   {
     title: 'Mixed Product Sourcing',
     caption: 'Different product categories managed through one purchasing team',
+    folder: 'mixed-sourcing',
   },
 ]
+
+function galleryImageCandidates(folder) {
+  return [1, 2, 3, 4, 5, 6, 7, 8].map((n) => {
+    const slot = String(n).padStart(2, '0')
+    return ['jpg', 'jpeg', 'png', 'webp'].map(
+      (ext) => `/uploads/gallery/${folder}/${slot}.${ext}`,
+    )
+  })
+}
 
 const faqs = [
   {
@@ -482,6 +496,93 @@ function MidCta({ label, text, variant = 'soft' }) {
   )
 }
 
+function GallerySlideshow({ title, folder, stagger = 0 }) {
+  const [loaded, setLoaded] = useState([])
+  const [index, setIndex] = useState(0)
+
+  useEffect(() => {
+    let cancelled = false
+    const slots = galleryImageCandidates(folder)
+
+    Promise.all(
+      slots.map(
+        (candidates) =>
+          new Promise((resolve) => {
+            let i = 0
+            const tryNext = () => {
+              if (i >= candidates.length) {
+                resolve(null)
+                return
+              }
+              const src = candidates[i]
+              i += 1
+              const img = new Image()
+              img.onload = () => resolve(src)
+              img.onerror = tryNext
+              img.src = src
+            }
+            tryNext()
+          }),
+      ),
+    ).then((results) => {
+      if (!cancelled) setLoaded(results.filter(Boolean))
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [folder])
+
+  useEffect(() => {
+    if (loaded.length < 2) return undefined
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reduceMotion) return undefined
+
+    const startDelay = stagger * 400
+    let intervalId
+    const timeoutId = window.setTimeout(() => {
+      intervalId = window.setInterval(() => {
+        setIndex((prev) => (prev + 1) % loaded.length)
+      }, 3500)
+    }, startDelay)
+
+    return () => {
+      window.clearTimeout(timeoutId)
+      if (intervalId) window.clearInterval(intervalId)
+    }
+  }, [loaded.length, stagger])
+
+  if (loaded.length === 0) {
+    return (
+      <div className="gallery-placeholder" role="img" aria-label={title}>
+        <span>{title}</span>
+      </div>
+    )
+  }
+
+  return (
+    <div className="gallery-slideshow" role="img" aria-label={title}>
+      {loaded.map((src, i) => (
+        <img
+          key={src}
+          src={src}
+          alt=""
+          className={i === index % loaded.length ? 'is-active' : ''}
+          loading={i === 0 ? 'eager' : 'lazy'}
+        />
+      ))}
+      {loaded.length > 1 && (
+        <div className="gallery-dots" aria-hidden="true">
+          {loaded.map((src, i) => (
+            <span key={src} className={i === index % loaded.length ? 'is-active' : ''} />
+          ))}
+        </div>
+      )}
+    </div>
+  )
+}
+
 export default function App() {
   const [form, setForm] = useState({
     name: '',
@@ -766,23 +867,25 @@ export default function App() {
               <span className="eyebrow">Real sourcing work</span>
               <h2>Our Sourcing Gallery</h2>
               <p>
-                A look at products, packaging and shipments we&apos;ve handled for clients sourcing
-                from China.
+                A look at products, packaging and shipments we&apos;ve recently handled for clients
+                sourcing from China.
               </p>
             </Reveal>
             <div className="gallery-grid">
-              {sourcingGallery.map((item) => (
+              {sourcingGallery.map((item, galleryIndex) => (
                 <Reveal className="gallery-item" key={item.title}>
-                  <div className="gallery-placeholder" role="img" aria-label={item.title}>
-                    <span>{item.title}</span>
-                  </div>
+                  <GallerySlideshow
+                    title={item.title}
+                    folder={item.folder}
+                    stagger={galleryIndex}
+                  />
                   <p className="gallery-caption">{item.caption}</p>
                 </Reveal>
               ))}
             </div>
             <Reveal className="projects-cta">
-              <p>Real products. Real packaging. Real shipments handled by our team in China.</p>
-              <p>Have Something Similar to Source?</p>
+              <p>... and many more. Get in touch with us to check actual variety. Real products. Real packaging. Real shipments handled by our team in China.</p>
+              <p>Have Something Similar to Source? Just send us a reference image and we will source it for you.</p>
               <a className="btn btn-primary" href="#consult">
                 Get a Free Sourcing Consultation
               </a>

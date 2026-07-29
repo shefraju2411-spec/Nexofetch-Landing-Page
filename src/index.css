@@ -790,14 +790,24 @@ ul {
 }
 
 .gallery-item {
+  display: flex;
+  flex-direction: column;
   background: var(--paper);
   border: 1px solid var(--line);
   overflow: hidden;
 }
 
-.gallery-placeholder {
+.gallery-placeholder,
+.gallery-slideshow {
   position: relative;
-  min-height: 11.5rem;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  min-height: clamp(15rem, 28vw, 20rem);
+  overflow: hidden;
+  flex: 1 1 auto;
+}
+
+.gallery-placeholder {
   display: grid;
   align-items: end;
   background:
@@ -810,34 +820,75 @@ ul {
     var(--mist);
 }
 
-.gallery-item:nth-child(3n + 1) .gallery-placeholder {
-  min-height: 12.75rem;
+.gallery-slideshow {
+  background: var(--mist);
 }
 
-.gallery-item:nth-child(3n + 2) .gallery-placeholder {
-  min-height: 10.75rem;
-}
-
-.gallery-item:nth-child(3n) .gallery-placeholder {
-  min-height: 13.5rem;
-}
-
-.gallery-placeholder span {
+.gallery-slideshow img {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  padding: 0.75rem 0.85rem;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 0.7s ease;
+}
+
+.gallery-slideshow img.is-active {
+  opacity: 1;
+}
+
+.gallery-overlay-label,
+.gallery-placeholder span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  width: 100%;
+  padding: 0.45rem 0.65rem;
   color: #fff;
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
-  background: linear-gradient(180deg, transparent, rgba(45, 46, 47, 0.88));
+  background: linear-gradient(180deg, transparent, rgba(45, 46, 47, 0.82));
+}
+
+.gallery-dots {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.55rem;
+  z-index: 2;
+  display: flex;
+  gap: 0.25rem;
+}
+
+.gallery-dots span {
+  width: 0.35rem;
+  height: 0.35rem;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.45);
+}
+
+.gallery-dots span.is-active {
+  background: #fff;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-slideshow img {
+    transition: none;
+  }
 }
 
 .gallery-caption {
-  padding: 0.7rem 0.85rem 0.9rem;
+  flex: 0 0 auto;
+  margin: 0;
+  padding: 0.45rem 0.65rem 0.55rem;
   color: var(--ink-muted);
-  font-size: 0.9rem;
-  line-height: 1.5;
+  font-size: 0.78rem;
+  line-height: 1.35;
 }
 
 .projects-cta {
