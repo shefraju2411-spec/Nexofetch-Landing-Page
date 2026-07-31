@@ -34,9 +34,8 @@ const products = [
     image:
       'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80',
     items: [
-      'Earrings and necklaces',
-      'Bracelets, rings, and stacks',
-      'Charms and anklets',
+      'Earrings, necklaces, bracelets, rings and stacks',
+      'Christmas charms and jewelry',
       'Retail-ready gift sets',
     ],
   },
@@ -78,12 +77,12 @@ const products = [
     ],
   },
   {
-    title: 'Lifestyle Accessories',
-    image: '/uploads/products/keychain.png',
+    title: 'Christmas Supplies',
+    image: '/uploads/products/Christmas.png',
     items: [
-      'Keychains and travel pouches',
-      'Mirrors, phone accessories, organizers',
-      'Seasonal and gift items',
+      'Christmas ornaments, decorations and party supplies',
+      'Holiday gift-sets and wraps',
+      'Tree toppers and light accessories',
     ],
   },
   {
@@ -693,8 +692,11 @@ export default function App() {
             <img className="logo-img" src="/nexofetch-logo.png" alt="Nexofetch" loading="eager" />
           </a>
           <div className="header-actions">
-            <a className="header-cta" href={WHATSAPP} target="_blank" rel="noreferrer">
-              Talk on WhatsApp
+            <a className="header-link" href={WHATSAPP} target="_blank" rel="noreferrer">
+              WhatsApp
+            </a>
+            <a className="header-link" href={EMAIL}>
+              Email
             </a>
             <a className="btn btn-primary header-btn" href="#consult">
               Get a Free Consultation
