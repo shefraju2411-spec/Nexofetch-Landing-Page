@@ -1428,6 +1428,70 @@ ul {
   color: rgba(255, 255, 255, 0.7) !important;
 }
 
+.final-form-status {
+  margin-top: 0.85rem;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+.final-form-status.is-success {
+  color: #b7f0c4 !important;
+}
+
+.final-form-status.is-error {
+  color: #ffc9c4 !important;
+}
+
+.final-form-status a {
+  color: #fff;
+  font-weight: 600;
+}
+
+.final-form .btn:disabled {
+  opacity: 0.7;
+  cursor: wait;
+  transform: none;
+}
+
+/* Thank you page */
+.thank-you-page .header {
+  position: relative;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+
+.thank-you {
+  min-height: calc(100vh - 8rem);
+  display: grid;
+  align-items: center;
+  background:
+    radial-gradient(circle at 15% 20%, rgba(238, 49, 36, 0.08), transparent 45%),
+    radial-gradient(circle at 85% 10%, rgba(44, 93, 175, 0.1), transparent 40%),
+    var(--paper);
+  padding: clamp(3rem, 8vw, 5rem) 0;
+}
+
+.thank-you-inner {
+  max-width: 36rem;
+  text-align: center;
+}
+
+.thank-you h1 {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  margin-bottom: 1rem;
+}
+
+.thank-you p {
+  color: var(--ink-muted);
+  font-size: 1.08rem;
+  line-height: 1.7;
+  margin-bottom: 1.75rem;
+}
+
+.thank-you-actions {
+  justify-content: center;
+}
+
 /* Mobile sticky CTA */
 .mobile-sticky {
   display: none;

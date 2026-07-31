@@ -4,6 +4,7 @@ const WHATSAPP_NUMBER = '8613305631958'
 const WHATSAPP_GREETING = 'Hello Wuyang Ge (Jessica)'
 const WHATSAPP = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_GREETING)}`
 const EMAIL = 'mailto:contact@nexofetch.com'
+const CONTACT_EMAIL = 'contact@nexofetch.com'
 const PRIMARY_CTA = 'Get a Free Sourcing Consultation'
 
 const audiences = [
@@ -483,12 +484,16 @@ function Reveal({ as: Tag = 'div', className = '', children }) {
   )
 }
 
-function MidCta({ label, text, variant = 'soft' }) {
+function MidCta({ label, text, variant = 'soft', href = '#consult', external = false }) {
   return (
     <section className={`mid-cta mid-cta-${variant}`} aria-label="Call to action">
       <div className="wrap mid-cta-inner">
         <p>{text}</p>
-        <a className="btn btn-primary" href="#consult">
+        <a
+          className="btn btn-primary"
+          href={href}
+          {...(external ? { target: '_blank', rel: 'noreferrer' } : {})}
+        >
           {label}
         </a>
       </div>
@@ -586,32 +591,97 @@ function GallerySlideshow({ title, folder, stagger = 0 }) {
 export default function App() {
   const [form, setForm] = useState({
     name: '',
-    business: '',
     email: '',
     whatsapp: '',
     country: '',
     message: '',
   })
+  const [formStatus, setFormStatus] = useState('idle')
+  const [showThankYou, setShowThankYou] = useState(false)
 
   function updateField(event) {
     const { name, value } = event.target
     setForm((prev) => ({ ...prev, [name]: value }))
   }
 
-  function handleConsult(event) {
+  async function handleConsult(event) {
     event.preventDefault()
-    const lines = [WHATSAPP_GREETING, '', 'I would like a free sourcing consultation.']
-    if (form.name) lines.push(`Name: ${form.name}`)
-    if (form.business) lines.push(`Business / Brand: ${form.business}`)
-    if (form.email) lines.push(`Email: ${form.email}`)
-    if (form.whatsapp) lines.push(`WhatsApp: ${form.whatsapp}`)
-    if (form.country) lines.push(`Destination Country: ${form.country}`)
-    if (form.message) lines.push(`What I want to source: ${form.message}`)
+    setFormStatus('sending')
 
-    window.open(
-      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`,
-      '_blank',
-      'noopener,noreferrer',
+    try {
+      const response = await fetch(`https://formsubmit.co/ajax/${CONTACT_EMAIL}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+        },
+        body: JSON.stringify({
+          _subject: 'New sourcing enquiry — Nexofetch landing page',
+          _template: 'table',
+          name: form.name,
+          email: form.email,
+          whatsapp: form.whatsapp,
+          country: form.country,
+          message: form.message,
+        }),
+      })
+
+      if (!response.ok) throw new Error('Failed to send enquiry')
+
+      setFormStatus('idle')
+      setForm({
+        name: '',
+        email: '',
+        whatsapp: '',
+        country: '',
+        message: '',
+      })
+      setShowThankYou(true)
+      window.scrollTo({ top: 0, behavior: 'smooth' })
+    } catch {
+      setFormStatus('error')
+    }
+  }
+
+  if (showThankYou) {
+    return (
+      <div className="site thank-you-page">
+        <header className="header thank-you-header">
+          <div className="wrap header-inner">
+            <a className="logo" href="#top" onClick={() => setShowThankYou(false)} aria-label="Nexofetch home">
+              <img className="logo-img" src="/nexofetch-logo.png" alt="Nexofetch" loading="eager" />
+            </a>
+          </div>
+        </header>
+        <main className="thank-you">
+          <div className="wrap thank-you-inner">
+            <p className="eyebrow">Enquiry received</p>
+            <h1>Thank You</h1>
+            <p>
+              Your sourcing enquiry has been sent successfully. Our team will review your
+              requirements and get back to you shortly.
+            </p>
+            <div className="cta-row thank-you-actions">
+              <a className="btn btn-primary" href={WHATSAPP} target="_blank" rel="noreferrer">
+                Talk to Us on WhatsApp
+              </a>
+              <button className="btn btn-outline" type="button" onClick={() => setShowThankYou(false)}>
+                Back to Landing Page
+              </button>
+            </div>
+          </div>
+        </main>
+        <footer className="footer">
+          <div className="wrap footer-inner">
+            <p>© {new Date().getFullYear()} Nexofetch. Your purchasing team in China.</p>
+            <p>
+              <a href="https://nexofetch.com/" target="_blank" rel="noreferrer">
+                nexofetch.com
+              </a>
+            </p>
+          </div>
+        </footer>
+      </div>
     )
   }
 
@@ -730,7 +800,7 @@ export default function App() {
         <MidCta
           variant="soft"
           label="Get Free Sourcing Consultation"
-          text="Tell us about your brand and the products you want to source from China."
+          text="Tell us the products that you want to source from China."
         />
 
         <section className="section products" id="products">
@@ -768,6 +838,8 @@ export default function App() {
           variant="dark"
           label="Talk to a Sourcing Expert"
           text="Share the categories you need and we will recommend suitable next steps."
+          href={WHATSAPP}
+          external
         />
 
         <section className="section pain" id="problems">
@@ -1047,6 +1119,8 @@ export default function App() {
           variant="light"
           label="Talk to a Sourcing Expert"
           text="Join brands already sourcing with Nexofetch — submit your enquiry today."
+          href={WHATSAPP}
+          external
         />
 
         <section className="section fees" id="fees">
@@ -1133,15 +1207,6 @@ export default function App() {
                   />
                 </label>
                 <label>
-                  Business / Brand
-                  <input
-                    name="business"
-                    value={form.business}
-                    onChange={updateField}
-                    placeholder="Brand or company"
-                  />
-                </label>
-                <label>
                   Email
                   <input
                     type="email"
@@ -1153,12 +1218,13 @@ export default function App() {
                   />
                 </label>
                 <label>
-                  WhatsApp (optional)
+                  WhatsApp
                   <input
                     name="whatsapp"
                     value={form.whatsapp}
                     onChange={updateField}
                     placeholder="+ country code and number"
+                    required
                   />
                 </label>
                 <label>
@@ -1182,13 +1248,19 @@ export default function App() {
                   />
                 </label>
                 <div className="final-actions">
-                  <button className="btn btn-primary" type="submit">
-                    Get My Sourcing Consultation
+                  <button className="btn btn-primary" type="submit" disabled={formStatus === 'sending'}>
+                    {formStatus === 'sending' ? 'Sending…' : 'Get My Sourcing Consultation'}
                   </button>
                   <a className="btn btn-ghost" href={WHATSAPP} target="_blank" rel="noreferrer">
                     Talk to Us on WhatsApp
                   </a>
                 </div>
+                {formStatus === 'error' && (
+                  <p className="final-form-status is-error">
+                    Something went wrong sending your enquiry. Please email us directly at{' '}
+                    <a href={EMAIL}>{CONTACT_EMAIL}</a> or try WhatsApp.
+                  </p>
+                )}
                 <p className="final-disclaimer">
                   No obligation to place an order. We will first review your requirement and explain
                   how we can help.
