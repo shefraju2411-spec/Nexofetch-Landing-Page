@@ -695,9 +695,7 @@ export default function App() {
             <a className="header-link" href={WHATSAPP} target="_blank" rel="noreferrer">
               WhatsApp
             </a>
-            <a className="header-link" href={EMAIL}>
-              Email
-            </a>
+            <span className="header-email">Email us at: contact@nexofetch.com</span>
             <a className="btn btn-primary header-btn" href="#consult">
               Get a Free Consultation
             </a>

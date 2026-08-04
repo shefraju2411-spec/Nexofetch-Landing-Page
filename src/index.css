@@ -203,6 +203,13 @@ ul {
   background: var(--paper);
 }
 
+.header-email {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--ink);
+  white-space: nowrap;
+}
+
 .header-actions {
   display: flex;
   align-items: center;
@@ -1683,6 +1690,14 @@ ul {
     min-height: 2.25rem;
     padding: 0.35rem 0.7rem;
     font-size: 0.8rem;
+  }
+
+  .header-email {
+    font-size: 0.75rem;
+    white-space: normal;
+    text-align: right;
+    max-width: 10rem;
+    line-height: 1.3;
   }
 
   .mobile-sticky {
