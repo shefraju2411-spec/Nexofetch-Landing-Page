@@ -187,7 +187,7 @@ const sourcingGallery = [
   },
   {
     title: 'Mixed Product Sourcing',
-    caption: 'Different product categories managed through one purchasing team',
+    caption: 'Client feedback and discussions',
     folder: 'mixed-sourcing',
   },
 ]
