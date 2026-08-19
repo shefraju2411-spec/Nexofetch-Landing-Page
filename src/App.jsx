@@ -495,9 +495,6 @@ export default function App() {
                     <button className="btn btn-primary" type="submit" disabled={formStatus === 'sending' || !agreed}>
                       {formStatus === 'sending' ? t.form.sending : t.form.submit}
                     </button>
-                    <a className="btn btn-ghost" href={WHATSAPP} target="_blank" rel="noreferrer">
-                      {t.hero.ctaWhatsapp}
-                    </a>
                   </div>
                   {formStatus === 'error' && (
                     <p className="final-form-status is-error">
