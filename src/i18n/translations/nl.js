@@ -106,7 +106,7 @@ const nl = {
       'Bouw of breid uw assortiment uit zonder voor elke categorie een apart sourcingproces te beheren. Wij sourcen in meerdere consumentenproductcategorieën en kunnen goederen van verschillende leveranciers consolideren tot één zending.',
     items: [
       {
-        title: 'Sieraden',
+        title: 'OEM & Private Label Modesieraden',
         items: [
           'Oorbellen, kettingen, armbanden, ringen en stacks',
           'Kerst charms en sieraden',
@@ -114,7 +114,7 @@ const nl = {
         ],
       },
       {
-        title: 'Haaraccessoires',
+        title: 'OEM & Groothandel Haaraccessoires',
         items: [
           'Haarklemmen en scrunchies',
           'Hoofdbanden en haarelastiekjes',
@@ -122,7 +122,7 @@ const nl = {
         ],
       },
       {
-        title: 'Cadeauverpakking',
+        title: 'Custom Sieradenverpakkingen',
         items: [
           'Custom dozen en zakjes',
           'Vloeipapier, linten en labels',
@@ -138,7 +138,7 @@ const nl = {
         ],
       },
       {
-        title: 'Babyproducten',
+        title: 'OEM & Private Label Babyproducten',
         items: [
           'Siliconen voedingssets en slabben',
           'Bijtringen en speenclips',
@@ -154,7 +154,7 @@ const nl = {
         ],
       },
       {
-        title: 'Knuffels',
+        title: 'Custom Knuffelproductie',
         items: [
           'Personage- en mini-pluche',
           'Zachte dieren en kussens',
@@ -312,6 +312,10 @@ const nl = {
       {
         title: 'Verzendcoördinatie',
         text: 'Uw bestelling wordt georganiseerd van consolidatie tot internationale levering, zodat u de logistiek niet alleen hoeft af te handelen.',
+      },
+      {
+        title: 'CE / REACH / RoHS Support',
+        text: 'Wij helpen bij het coördineren van documentatie en leveranciersvereisten met betrekking tot Europese compliance-verwachtingen.',
       },
     ],
   },
@@ -503,20 +507,52 @@ const nl = {
     name: 'Naam',
     email: 'E-mail',
     whatsapp: 'WhatsApp',
-    country: 'Bestemmingsland',
+    sourcingType: 'Welk type sourcing heeft u nodig?',
+    sourcingOptions: [
+      'OEM / Maatwerk productie',
+      'Private Label',
+      'Groothandel / Kant-en-klare producten',
+      'Productontwikkeling',
+      'Leveranciers sourcen',
+      'Nog niet zeker',
+    ],
+    sourcingDefault: 'Selecteer sourcingtype',
     message: 'Wat wilt u sourcen?',
     namePh: 'Uw naam',
     emailPh: 'u@bedrijf.nl',
     whatsappPh: '+ landcode en nummer',
-    countryPh: 'bijv. Nederland, België, Duitsland',
     messagePh:
       'Vertel ons het product, geschatte hoeveelheid, customisatievereisten en eventuele doelprijs.',
+    checkbox:
+      'Ik begrijp dat Nexofetch geen namaak-, replica- of niet-geautoriseerde merkproducten sourcet.',
     submit: 'Mijn sourcingadvies aanvragen',
     sending: 'Verzenden…',
     error:
       'Er ging iets mis bij het verzenden van uw aanvraag. E-mail ons rechtstreeks op contact@nexofetch.com of probeer WhatsApp.',
     disclaimer:
       'Geen verplichting tot bestellen. Wij beoordelen eerst uw aanvraag en leggen uit hoe wij kunnen helpen.',
+  },
+  formQualify: {
+    tagline: 'OEM \u2022 Private Label \u2022 Maatwerk Productie \u2022 Groothandel Sourcing',
+    note: 'Wij sourcen legitieme producten voor bedrijven en merken. Wij sourcen geen namaak-, replica- of niet-geautoriseerde merkproducten.',
+  },
+  rejection: {
+    title: 'Wij kunnen niet helpen met namaak-, replica- of niet-geautoriseerde merkproducten.',
+    p1: 'Nexofetch ondersteunt OEM-productie, private-labelproducten, maatwerk productontwikkeling en legitieme groothandel.',
+    p2: 'Als u een vergelijkbaar product onder uw eigen merk wilt ontwikkelen, helpen wij u graag.',
+    cta: 'Ontwikkel het onder mijn eigen merk',
+  },
+  canSource: {
+    title: 'Wat wij voor u kunnen sourcen',
+    items: [
+      'OEM- & private-labelproducten',
+      'Maatwerk geproduceerde producten',
+      'Ongebrandmerkte groothandelsproducten',
+      'Maatwerk verpakking en branding',
+      'Producten op uw specificaties',
+      'Leveranciers sourcen voor legitieme commerciële projecten',
+    ],
+    note: 'Wij sourcen geen namaakproducten of niet-geautoriseerde kopieën van derden merken.',
   },
   thankYou: {
     eyebrow: 'Aanvraag ontvangen',

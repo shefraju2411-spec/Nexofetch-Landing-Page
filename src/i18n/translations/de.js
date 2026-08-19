@@ -106,7 +106,7 @@ const de = {
       'Erweitern Sie Ihr Sortiment, ohne für jede Kategorie einen separaten Beschaffungsprozess zu verwalten. Wir beschaffen in zahlreichen Konsumgüterkategorien und können Waren verschiedener Lieferanten in einer Sendung konsolidieren.',
     items: [
       {
-        title: 'Schmuck',
+        title: 'OEM & Private-Label-Modeschmuck',
         items: [
           'Ohrringe, Halsketten, Armbänder, Ringe und Stapelringe',
           'Weihnachts-Charms und Schmuck',
@@ -114,7 +114,7 @@ const de = {
         ],
       },
       {
-        title: 'Haaraccessoires',
+        title: 'OEM & Großhandel Haaraccessoires',
         items: [
           'Haarklammern und Scrunchies',
           'Haarbänder und Haargummis',
@@ -122,7 +122,7 @@ const de = {
         ],
       },
       {
-        title: 'Geschenkverpackungen',
+        title: 'Individuelle Schmuckverpackungen',
         items: [
           'Individuelle Boxen und Beutel',
           'Seidenpapier, Bänder und Etiketten',
@@ -138,7 +138,7 @@ const de = {
         ],
       },
       {
-        title: 'Babyprodukte',
+        title: 'OEM & Private-Label-Babyprodukte',
         items: [
           'Silikon-Fütterungssets und Lätzchen',
           'Beißringe und Schnullerketten',
@@ -154,7 +154,7 @@ const de = {
         ],
       },
       {
-        title: 'Plüschtiere',
+        title: 'Individuelle Plüschtier-Fertigung',
         items: [
           'Charakter- und Mini-Plüsch',
           'Weiche Tiere und Kissen',
@@ -312,6 +312,10 @@ const de = {
       {
         title: 'Versandkoordination',
         text: 'Ihre Bestellung wird von der Konsolidierung bis zur internationalen Lieferung organisiert — Sie müssen die Logistik nicht allein bewältigen.',
+      },
+      {
+        title: 'CE / REACH / RoHS Support',
+        text: 'Wir unterstützen bei der Koordination von Dokumentation und Lieferantenanforderungen im Hinblick auf europäische Compliance-Erwartungen.',
       },
     ],
   },
@@ -503,20 +507,52 @@ const de = {
     name: 'Name',
     email: 'E-Mail',
     whatsapp: 'WhatsApp',
-    country: 'Zielland',
+    sourcingType: 'Welche Art von Beschaffung benötigen Sie?',
+    sourcingOptions: [
+      'OEM / Auftragsfertigung',
+      'Private Label',
+      'Großhandel / Fertigprodukte',
+      'Produktentwicklung',
+      'Lieferantensuche',
+      'Noch unsicher',
+    ],
+    sourcingDefault: 'Beschaffungsart wählen',
     message: 'Was möchten Sie beschaffen?',
     namePh: 'Ihr Name',
     emailPh: 'you@company.com',
     whatsappPh: '+ Ländervorwahl und Nummer',
-    countryPh: 'z. B. Deutschland, Australien, UK',
     messagePh:
       'Nennen Sie uns das Produkt, die geschätzte Menge, Individualisierungswünsche und Ihre Zielpreise.',
+    checkbox:
+      'Ich verstehe, dass Nexofetch keine gefälschten, nachgemachten oder markenrechtlich nicht autorisierten Produkte beschafft.',
     submit: 'Beschaffungsberatung anfragen',
     sending: 'Wird gesendet…',
     error:
       'Beim Senden Ihrer Anfrage ist ein Fehler aufgetreten. Bitte schreiben Sie uns direkt an contact@nexofetch.com oder versuchen Sie WhatsApp.',
     disclaimer:
       'Keine Verpflichtung zur Bestellung. Wir prüfen zunächst Ihre Anforderung und erklären, wie wir helfen können.',
+  },
+  formQualify: {
+    tagline: 'OEM \u2022 Private Label \u2022 Auftragsfertigung \u2022 Großhandel-Beschaffung',
+    note: 'Wir beschaffen legitime Produkte für Unternehmen und Marken. Wir beschaffen keine gefälschten, nachgemachten oder markenrechtlich nicht autorisierten Produkte.',
+  },
+  rejection: {
+    title: 'Wir können bei gefälschten, nachgemachten oder markenrechtlich nicht autorisierten Produkten nicht behilflich sein.',
+    p1: 'Nexofetch unterstützt OEM-Fertigung, Private-Label-Produkte, individuelle Produktentwicklung und legitimen Großhandel.',
+    p2: 'Wenn Sie ein ähnliches Produkt unter Ihrer eigenen Marke entwickeln möchten, helfen wir Ihnen gerne.',
+    cta: 'Unter eigener Marke entwickeln',
+  },
+  canSource: {
+    title: 'Was wir für Sie beschaffen können',
+    items: [
+      'OEM- & Private-Label-Produkte',
+      'Individuell gefertigte Produkte',
+      'Unmarkierte Großhandelsprodukte',
+      'Individuelle Verpackung und Branding',
+      'Produkte nach Ihren Spezifikationen',
+      'Lieferantensuche für legitime Handelsprojekte',
+    ],
+    note: 'Wir beschaffen keine gefälschten Produkte oder nicht autorisierte Kopien von Drittmarken.',
   },
   thankYou: {
     eyebrow: 'Anfrage erhalten',

@@ -1521,6 +1521,128 @@ ul {
   transform: none;
 }
 
+/* Form qualification tagline */
+.form-qualify {
+  margin: 1rem 0 0.25rem;
+  max-width: 36rem;
+}
+
+.form-qualify-tagline {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.92rem;
+  letter-spacing: 0.02em;
+  color: var(--accent-blue);
+  margin-bottom: 0.35rem;
+}
+
+.form-qualify-note {
+  font-size: 0.82rem;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+/* Form select (dropdown) */
+.final-form select {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: var(--radius);
+  padding: 0.75rem 0.85rem;
+  cursor: pointer;
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23626262' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.85rem center;
+  padding-right: 2.25rem;
+}
+
+.final-form select:focus {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 1px;
+  border-color: transparent;
+}
+
+/* Form checkbox */
+.form-checkbox {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start;
+  gap: 0.6rem !important;
+  margin-bottom: 0.85rem;
+  font-size: 0.82rem !important;
+  font-weight: 500 !important;
+  color: var(--ink-muted);
+  line-height: 1.45;
+  cursor: pointer;
+}
+
+.form-checkbox input[type="checkbox"] {
+  width: 1.1rem;
+  height: 1.1rem;
+  flex: 0 0 auto;
+  margin-top: 0.1rem;
+  accent-color: var(--accent-blue);
+  cursor: pointer;
+}
+
+/* Rejection card */
+.rejection-card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 1.75rem 1.5rem;
+}
+
+.rejection-card h3 {
+  font-size: 1.15rem;
+  margin-bottom: 0.85rem;
+  color: var(--ink);
+}
+
+.rejection-card p {
+  color: var(--ink-muted);
+  margin-bottom: 0.75rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.rejection-card .btn {
+  margin-top: 0.5rem;
+}
+
+/* What We Can Source */
+.can-source {
+  background: var(--accent-soft);
+}
+
+.can-source-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem 1.5rem;
+}
+
+.can-source-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  line-height: 1.4;
+}
+
+.can-source-note {
+  margin-top: 1.5rem;
+  max-width: 42rem;
+}
+
+.can-source-note p {
+  font-size: 0.88rem;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
 /* Thank you page */
 .thank-you-page .header {
   position: relative;
@@ -1701,6 +1823,10 @@ ul {
   }
 
   .audience-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .can-source-grid {
     grid-template-columns: 1fr;
   }
 

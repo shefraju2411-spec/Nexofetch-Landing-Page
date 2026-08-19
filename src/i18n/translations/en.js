@@ -106,7 +106,7 @@ const en = {
       'Build or expand your product range without managing a separate sourcing process for every category. We source across multiple consumer-product categories and can consolidate goods from different suppliers into one shipment.',
     items: [
       {
-        title: 'Jewelry',
+        title: 'OEM & Private Label Fashion Jewelry',
         items: [
           'Earrings, necklaces, bracelets, rings and stacks',
           'Christmas charms and jewelry',
@@ -114,7 +114,7 @@ const en = {
         ],
       },
       {
-        title: 'Hair Accessories',
+        title: 'OEM & Wholesale Hair Accessories',
         items: [
           'Claw clips and scrunchies',
           'Headbands and hair ties',
@@ -122,7 +122,7 @@ const en = {
         ],
       },
       {
-        title: 'Gift Packaging',
+        title: 'Custom Jewelry Packaging',
         items: [
           'Custom boxes and pouches',
           'Tissue, ribbons, and labels',
@@ -138,7 +138,7 @@ const en = {
         ],
       },
       {
-        title: 'Baby Products',
+        title: 'OEM & Private Label Baby Products',
         items: [
           'Silicone feeding sets and bibs',
           'Teething toys and pacifier clips',
@@ -154,7 +154,7 @@ const en = {
         ],
       },
       {
-        title: 'Plush Toys',
+        title: 'Custom Plush Toy Manufacturing',
         items: [
           'Character and mini plush',
           'Soft animals and pillows',
@@ -312,6 +312,10 @@ const en = {
       {
         title: 'Shipping Coordination',
         text: 'Your order is organised from consolidation to international delivery, so you are not left handling logistics alone.',
+      },
+      {
+        title: 'CE / REACH / RoHS Support',
+        text: 'We help coordinate documentation and supplier requirements relevant to European compliance expectations.',
       },
     ],
   },
@@ -503,20 +507,52 @@ const en = {
     name: 'Name',
     email: 'Email',
     whatsapp: 'WhatsApp',
-    country: 'Destination Country',
+    sourcingType: 'What type of sourcing do you need?',
+    sourcingOptions: [
+      'OEM / Custom Manufacturing',
+      'Private Label',
+      'Wholesale / Ready-Made Products',
+      'Product Development',
+      'Supplier Sourcing',
+      'Not Sure Yet',
+    ],
+    sourcingDefault: 'Select sourcing type',
     message: 'What would you like to source?',
     namePh: 'Your name',
     emailPh: 'you@company.com',
     whatsappPh: '+ country code and number',
-    countryPh: 'e.g. Germany, Australia, UK',
     messagePh:
       'Tell us the product, estimated quantity, customisation requirements and any target pricing you have.',
+    checkbox:
+      'I understand that Nexofetch does not source counterfeit, replica, or unauthorized branded products.',
     submit: 'Get My Sourcing Consultation',
     sending: 'Sending…',
     error:
       'Something went wrong sending your enquiry. Please email us directly at contact@nexofetch.com or try WhatsApp.',
     disclaimer:
       'No obligation to place an order. We will first review your requirement and explain how we can help.',
+  },
+  formQualify: {
+    tagline: 'OEM \u2022 Private Label \u2022 Custom Manufacturing \u2022 Wholesale Sourcing',
+    note: 'We source legitimate products for businesses and brands. We do not source counterfeit, replica, or unauthorized branded products.',
+  },
+  rejection: {
+    title: 'We\u2019re unable to assist with counterfeit, replica, or unauthorized branded products.',
+    p1: 'Nexofetch supports OEM manufacturing, private-label products, custom product development and legitimate wholesale sourcing.',
+    p2: 'If you\u2019d like to develop a similar product under your own brand, we\u2019d be happy to help.',
+    cta: 'Develop It Under My Own Brand',
+  },
+  canSource: {
+    title: 'What We Can Help You Source',
+    items: [
+      'OEM & private-label products',
+      'Custom manufactured products',
+      'Unbranded wholesale products',
+      'Custom packaging and branding',
+      'Products manufactured to your specifications',
+      'Supplier sourcing for legitimate commercial projects',
+    ],
+    note: 'We do not source counterfeit products or unauthorized copies of third-party brands.',
   },
   thankYou: {
     eyebrow: 'Enquiry received',

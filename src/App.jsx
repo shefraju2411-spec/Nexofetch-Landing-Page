@@ -9,6 +9,20 @@ const WHATSAPP = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHA
 const EMAIL = 'mailto:contact@nexofetch.com'
 const CONTACT_EMAIL = 'contact@nexofetch.com'
 
+const COUNTERFEIT_TERMS = /\b(replica|replicas|fake|1:1|aaa\b|mirror\s*quality|counterfeit|knockoff|knock[\s-]?off|first\s*copy|master\s*copy|designer\s*cop(?:y|ies)|branded\s*cop(?:y|ies)|unauthorized\s*replica)\b/i
+const COUNTERFEIT_COMBOS = /\b(replica|copy|copies|fake|1:1)\s+\w+|\w+\s+(replica|copy|copies|fake)\b/i
+
+function detectCounterfeitIntent(text) {
+  if (!text) return false
+  if (COUNTERFEIT_TERMS.test(text)) return true
+  if (COUNTERFEIT_COMBOS.test(text)) {
+    const lower = text.toLowerCase()
+    const hasCounterfeitWord = /\b(replica|replicas|fake|copy|copies|1:1|counterfeit|knockoff|knock[\s-]?off)\b/.test(lower)
+    if (hasCounterfeitWord) return true
+  }
+  return false
+}
+
 function galleryImageCandidates(folder) {
   return [1, 2, 3, 4, 5, 6, 7, 8].map((n) => {
     const slot = String(n).padStart(2, '0')
@@ -195,23 +209,39 @@ function GallerySlideshow({ title, folder, stagger = 0 }) {
 
 export default function App() {
   const { t } = useLanguage()
-  const [form, setForm] = useState({
-    name: '',
-    email: '',
-    whatsapp: '',
-    country: '',
-    message: '',
-  })
+  const EMPTY_FORM = { name: '', email: '', whatsapp: '', sourcingType: '', message: '' }
+  const [form, setForm] = useState(EMPTY_FORM)
+  const [agreed, setAgreed] = useState(false)
   const [formStatus, setFormStatus] = useState('idle')
   const [showThankYou, setShowThankYou] = useState(false)
+  const [showRejection, setShowRejection] = useState(false)
 
   function updateField(event) {
     const { name, value } = event.target
     setForm((prev) => ({ ...prev, [name]: value }))
   }
 
+  function handleRetryOwnBrand() {
+    setShowRejection(false)
+    setFormStatus('idle')
+    setForm((prev) => ({
+      ...prev,
+      message: prev.message
+        .replace(COUNTERFEIT_TERMS, '')
+        .replace(/\s{2,}/g, ' ')
+        .trim(),
+    }))
+    document.getElementById('consult')?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   async function handleConsult(event) {
     event.preventDefault()
+
+    if (detectCounterfeitIntent(form.message)) {
+      setShowRejection(true)
+      return
+    }
+
     setFormStatus('sending')
 
     try {
@@ -227,21 +257,20 @@ export default function App() {
           name: form.name,
           email: form.email,
           whatsapp: form.whatsapp,
-          country: form.country,
+          sourcingType: form.sourcingType,
           message: form.message,
         }),
       })
 
       if (!response.ok) throw new Error('Failed to send enquiry')
 
+      if (typeof window.dataLayer !== 'undefined') {
+        window.dataLayer.push({ event: 'generate_lead' })
+      }
+
       setFormStatus('idle')
-      setForm({
-        name: '',
-        email: '',
-        whatsapp: '',
-        country: '',
-        message: '',
-      })
+      setForm(EMPTY_FORM)
+      setAgreed(false)
       setShowThankYou(true)
       window.scrollTo({ top: 0, behavior: 'smooth' })
     } catch {
@@ -369,6 +398,10 @@ export default function App() {
               <h2>{t.form.title}</h2>
               <p>{t.form.p1}</p>
               <p>{t.form.p2}</p>
+              <div className="form-qualify">
+                <p className="form-qualify-tagline">{t.formQualify.tagline}</p>
+                <p className="form-qualify-note">{t.formQualify.note}</p>
+              </div>
               <ol className="final-steps">
                 {t.form.steps.map((step) => (
                   <li key={step}>{step}</li>
@@ -383,74 +416,98 @@ export default function App() {
             </Reveal>
 
             <Reveal>
-              <form className="final-form" onSubmit={handleConsult}>
-                <label>
-                  {t.form.name}
-                  <input
-                    name="name"
-                    value={form.name}
-                    onChange={updateField}
-                    placeholder={t.form.namePh}
-                    required
-                  />
-                </label>
-                <label>
-                  {t.form.email}
-                  <input
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={updateField}
-                    placeholder={t.form.emailPh}
-                    required
-                  />
-                </label>
-                <label>
-                  {t.form.whatsapp}
-                  <input
-                    name="whatsapp"
-                    value={form.whatsapp}
-                    onChange={updateField}
-                    placeholder={t.form.whatsappPh}
-                    required
-                  />
-                </label>
-                <label>
-                  {t.form.country}
-                  <input
-                    name="country"
-                    value={form.country}
-                    onChange={updateField}
-                    placeholder={t.form.countryPh}
-                    required
-                  />
-                </label>
-                <label>
-                  {t.form.message}
-                  <textarea
-                    name="message"
-                    value={form.message}
-                    onChange={updateField}
-                    placeholder={t.form.messagePh}
-                    required
-                  />
-                </label>
-                <div className="final-actions">
-                  <button className="btn btn-primary" type="submit" disabled={formStatus === 'sending'}>
-                    {formStatus === 'sending' ? t.form.sending : t.form.submit}
+              {showRejection ? (
+                <div className="rejection-card">
+                  <h3>{t.rejection.title}</h3>
+                  <p>{t.rejection.p1}</p>
+                  <p>{t.rejection.p2}</p>
+                  <button className="btn btn-primary" type="button" onClick={handleRetryOwnBrand}>
+                    {t.rejection.cta}
                   </button>
-                  <a className="btn btn-ghost" href={WHATSAPP} target="_blank" rel="noreferrer">
-                    {t.hero.ctaWhatsapp}
-                  </a>
                 </div>
-                {formStatus === 'error' && (
-                  <p className="final-form-status is-error">
-                    {t.form.error}{' '}
-                    <a href={EMAIL}>{CONTACT_EMAIL}</a>
-                  </p>
-                )}
-                <p className="final-disclaimer">{t.form.disclaimer}</p>
-              </form>
+              ) : (
+                <form className="final-form" onSubmit={handleConsult}>
+                  <label>
+                    {t.form.name}
+                    <input
+                      name="name"
+                      value={form.name}
+                      onChange={updateField}
+                      placeholder={t.form.namePh}
+                      required
+                    />
+                  </label>
+                  <label>
+                    {t.form.email}
+                    <input
+                      type="email"
+                      name="email"
+                      value={form.email}
+                      onChange={updateField}
+                      placeholder={t.form.emailPh}
+                      required
+                    />
+                  </label>
+                  <label>
+                    {t.form.whatsapp}
+                    <input
+                      name="whatsapp"
+                      value={form.whatsapp}
+                      onChange={updateField}
+                      placeholder={t.form.whatsappPh}
+                      required
+                    />
+                  </label>
+                  <label>
+                    {t.form.sourcingType}
+                    <select
+                      name="sourcingType"
+                      value={form.sourcingType}
+                      onChange={updateField}
+                      required
+                    >
+                      <option value="" disabled>{t.form.sourcingDefault}</option>
+                      {t.form.sourcingOptions.map((opt) => (
+                        <option key={opt} value={opt}>{opt}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label>
+                    {t.form.message}
+                    <textarea
+                      name="message"
+                      value={form.message}
+                      onChange={updateField}
+                      placeholder={t.form.messagePh}
+                      required
+                    />
+                  </label>
+                  <label className="form-checkbox">
+                    <input
+                      type="checkbox"
+                      checked={agreed}
+                      onChange={(e) => setAgreed(e.target.checked)}
+                      required
+                    />
+                    <span>{t.form.checkbox}</span>
+                  </label>
+                  <div className="final-actions">
+                    <button className="btn btn-primary" type="submit" disabled={formStatus === 'sending' || !agreed}>
+                      {formStatus === 'sending' ? t.form.sending : t.form.submit}
+                    </button>
+                    <a className="btn btn-ghost" href={WHATSAPP} target="_blank" rel="noreferrer">
+                      {t.hero.ctaWhatsapp}
+                    </a>
+                  </div>
+                  {formStatus === 'error' && (
+                    <p className="final-form-status is-error">
+                      {t.form.error}{' '}
+                      <a href={EMAIL}>{CONTACT_EMAIL}</a>
+                    </p>
+                  )}
+                  <p className="final-disclaimer">{t.form.disclaimer}</p>
+                </form>
+              )}
             </Reveal>
           </div>
         </section>
@@ -659,26 +716,6 @@ export default function App() {
           </div>
         </section>
 
-        <section className="section europe" id="european-importers">
-          <div className="wrap">
-            <Reveal className="section-head">
-              <span className="eyebrow">{t.europe.eyebrow}</span>
-              <h2>{t.europe.title}</h2>
-            </Reveal>
-            <div className="europe-grid">
-              {t.europe.cards.map((item) => (
-                <Reveal className="europe-card" key={item.title}>
-                  <h3>{item.title}</h3>
-                  <p>{item.text}</p>
-                </Reveal>
-              ))}
-            </div>
-            <Reveal className="europe-note">
-              <p>{t.europe.note}</p>
-            </Reveal>
-          </div>
-        </section>
-
         <MidCta
           variant="dark"
           label={t.midCta.pricing.label}
@@ -730,6 +767,24 @@ export default function App() {
             </Reveal>
             <Reveal className="compare-note">
               <p>{t.compare.note}</p>
+            </Reveal>
+          </div>
+        </section>
+
+        <section className="section can-source" id="can-source">
+          <div className="wrap">
+            <Reveal className="section-head">
+              <h2>{t.canSource.title}</h2>
+            </Reveal>
+            <Reveal className="can-source-grid">
+              {t.canSource.items.map((item) => (
+                <div className="can-source-item" key={item}>
+                  <CheckIcon /> <span>{item}</span>
+                </div>
+              ))}
+            </Reveal>
+            <Reveal className="can-source-note">
+              <p>{t.canSource.note}</p>
             </Reveal>
           </div>
         </section>

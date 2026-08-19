@@ -106,7 +106,7 @@ const fr = {
       'Développez ou élargissez votre gamme de produits sans gérer un processus d\'approvisionnement distinct pour chaque catégorie. Nous nous approvisionnons dans de multiples catégories de produits de consommation et pouvons consolider les marchandises de différents fournisseurs en une seule expédition.',
     items: [
       {
-        title: 'Bijouterie',
+        title: 'Bijouterie OEM & Marque Privée',
         items: [
           'Boucles d\'oreilles, colliers, bracelets, bagues et parures',
           'Charms et bijoux de Noël',
@@ -114,7 +114,7 @@ const fr = {
         ],
       },
       {
-        title: 'Accessoires capillaires',
+        title: 'Accessoires capillaires OEM & Gros',
         items: [
           'Pinces à cheveux et chouchous',
           'Bandeaux et élastiques',
@@ -122,7 +122,7 @@ const fr = {
         ],
       },
       {
-        title: 'Emballages cadeaux',
+        title: 'Emballages bijoux personnalisés',
         items: [
           'Boîtes et pochettes personnalisées',
           'Papier de soie, rubans et étiquettes',
@@ -138,7 +138,7 @@ const fr = {
         ],
       },
       {
-        title: 'Produits pour bébés',
+        title: 'Produits bébé OEM & Marque Privée',
         items: [
           'Sets d\'alimentation en silicone et bavoirs',
           'Jouets de dentition et attache-sucettes',
@@ -154,7 +154,7 @@ const fr = {
         ],
       },
       {
-        title: 'Peluches',
+        title: 'Fabrication de peluches sur mesure',
         items: [
           'Peluches personnages et miniatures',
           'Animaux en peluche et coussins',
@@ -312,6 +312,10 @@ const fr = {
       {
         title: 'Coordination de l\'expédition',
         text: 'Votre commande est organisée de la consolidation à la livraison internationale, sans que vous ayez à gérer la logistique seul.',
+      },
+      {
+        title: 'CE / REACH / RoHS Support',
+        text: 'Nous aidons à coordonner la documentation et les exigences fournisseurs en matière de conformité européenne.',
       },
     ],
   },
@@ -503,20 +507,52 @@ const fr = {
     name: 'Nom',
     email: 'Email',
     whatsapp: 'WhatsApp',
-    country: 'Pays de destination',
+    sourcingType: 'Quel type d\'approvisionnement recherchez-vous ?',
+    sourcingOptions: [
+      'OEM / Fabrication sur mesure',
+      'Marque privée',
+      'Grossiste / Produits prêts à l\'emploi',
+      'Développement de produits',
+      'Recherche de fournisseurs',
+      'Pas encore sûr(e)',
+    ],
+    sourcingDefault: 'Sélectionnez le type',
     message: 'Que souhaitez-vous approvisionner ?',
     namePh: 'Votre nom',
     emailPh: 'vous@entreprise.com',
     whatsappPh: '+ indicatif pays et numéro',
-    countryPh: 'ex. France, Belgique, Allemagne',
     messagePh:
       'Indiquez le produit, la quantité estimée, les exigences de personnalisation et tout prix cible.',
+    checkbox:
+      'Je comprends que Nexofetch ne s\'approvisionne pas en produits contrefaits, répliques ou produits de marque non autorisés.',
     submit: 'Obtenir ma consultation d\'approvisionnement',
     sending: 'Envoi en cours…',
     error:
       'Une erreur s\'est produite lors de l\'envoi de votre demande. Contactez-nous directement par email à contact@nexofetch.com ou via WhatsApp.',
     disclaimer:
       'Aucune obligation de commande. Nous examinerons d\'abord votre demande et vous expliquerons comment nous pouvons vous aider.',
+  },
+  formQualify: {
+    tagline: 'OEM \u2022 Marque Privée \u2022 Fabrication sur Mesure \u2022 Approvisionnement en Gros',
+    note: 'Nous approvisionnons des produits légitimes pour les entreprises et les marques. Nous ne fournissons pas de produits contrefaits, de répliques ou de produits de marque non autorisés.',
+  },
+  rejection: {
+    title: 'Nous ne pouvons pas vous aider avec des produits contrefaits, des répliques ou des produits de marque non autorisés.',
+    p1: 'Nexofetch accompagne la fabrication OEM, les produits en marque privée, le développement de produits personnalisés et l\'approvisionnement en gros légitime.',
+    p2: 'Si vous souhaitez développer un produit similaire sous votre propre marque, nous serons ravis de vous aider.',
+    cta: 'Développer sous ma propre marque',
+  },
+  canSource: {
+    title: 'Ce que nous pouvons vous aider à approvisionner',
+    items: [
+      'Produits OEM & marque privée',
+      'Produits fabriqués sur mesure',
+      'Produits de gros non marqués',
+      'Emballage et branding personnalisés',
+      'Produits fabriqués selon vos spécifications',
+      'Recherche de fournisseurs pour des projets commerciaux légitimes',
+    ],
+    note: 'Nous ne fournissons pas de produits contrefaits ni de copies non autorisées de marques tierces.',
   },
   thankYou: {
     eyebrow: 'Demande reçue',
