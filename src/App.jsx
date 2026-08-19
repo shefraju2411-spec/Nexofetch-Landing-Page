@@ -1,196 +1,13 @@
 import { useEffect, useRef, useState } from 'react'
+import LanguageSwitcher from './components/LanguageSwitcher.jsx'
+import { galleryFolders, heroImages, productImages } from './content.js'
+import { useLanguage } from './i18n/LanguageContext.jsx'
 
 const WHATSAPP_NUMBER = '8613305631958'
 const WHATSAPP_GREETING = 'Hello Wuyang Ge (Jessica)'
 const WHATSAPP = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_GREETING)}`
 const EMAIL = 'mailto:contact@nexofetch.com'
 const CONTACT_EMAIL = 'contact@nexofetch.com'
-const PRIMARY_CTA = 'Get a Free Sourcing Consultation'
-
-const audiences = [
-  'Online & e-commerce brands',
-  'Independent retailers',
-  'Jewelry & accessories brands',
-  'Lifestyle & gift stores',
-  'Boutique retailers',
-  'Amazon & marketplace sellers',
-  'Small wholesalers',
-  'Businesses expanding their product range',
-]
-
-const pains = [
-  "You're spending hours contacting and following up with suppliers.",
-  'Different factories have different MOQs, prices and payment terms.',
-  'You cannot easily tell which supplier is actually reliable.',
-  "Samples look good — but you're worried bulk production may be different.",
-  'Every supplier has separate packaging, timelines and shipping arrangements.',
-  'You want to add new products, but that means starting the supplier search again.',
-  'You spend more time managing China sourcing than growing your business.',
-]
-
-const products = [
-  {
-    title: 'Jewelry',
-    image:
-      'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?auto=format&fit=crop&w=800&q=80',
-    items: [
-      'Earrings, necklaces, bracelets, rings and stacks',
-      'Christmas charms and jewelry',
-      'Retail-ready gift sets',
-    ],
-  },
-  {
-    title: 'Hair Accessories',
-    image: '/uploads/hero/hairclips.png',
-    items: [
-      'Claw clips and scrunchies',
-      'Headbands and hair ties',
-      'Pins, barrettes, and combs',
-    ],
-  },
-  {
-    title: 'Gift Packaging',
-    image: '/uploads/hero/jewelry-packaging.png',
-    items: [
-      'Custom boxes and pouches',
-      'Tissue, ribbons, and labels',
-      'Branded bags for retail',
-    ],
-  },
-  {
-    title: 'Pet Accessories',
-    image:
-      'https://images.unsplash.com/photo-1587300003388-59208cc962cb?auto=format&fit=crop&w=800&q=80',
-    items: [
-      'Collars, leashes, and bowls',
-      'Toys, beds, and apparel',
-      'Carriers and travel gear',
-    ],
-  },
-  {
-    title: 'Baby Products',
-    image: '/uploads/hero/baby-silicone.png',
-    items: [
-      'Silicone feeding sets and bibs',
-      'Teething toys and pacifier clips',
-      'Blankets and nursery accessories',
-    ],
-  },
-  {
-    title: 'Christmas Supplies',
-    image: '/uploads/products/Christmas.png',
-    items: [
-      'Christmas ornaments, decorations and party supplies',
-      'Holiday gift-sets and wraps',
-      'Tree toppers and light accessories',
-    ],
-  },
-  {
-    title: 'Plush Toys',
-    image: '/uploads/products/plush-teddy.png',
-    items: [
-      'Character and mini plush',
-      'Soft animals and pillows',
-      'Branded mascots and gift sets',
-    ],
-  },
-]
-
-const includes = [
-  'Supplier sourcing',
-  'Supplier & factory evaluation',
-  'Quotation comparison',
-  'Price & MOQ negotiation',
-  'Sample coordination',
-  'Branding & packaging coordination',
-  'Production follow-up',
-  'Quality inspection coordination',
-  'Shipment consolidation',
-  'Shipping & logistics support',
-]
-
-const steps = [
-  {
-    title: 'Send Your Requirements',
-    text: 'Send us a product link, reference image or specification. Include your estimated quantity and destination market.',
-  },
-  {
-    title: 'Supplier Sourcing',
-    text: 'We identify suitable manufacturers based on product requirements, MOQ, quality expectations and target pricing.',
-  },
-  {
-    title: 'Quotation & Comparison',
-    text: 'We compare prices from different suppliers and quote the option that best fits your quality and needs.',
-  },
-  {
-    title: 'Samples',
-    text: 'When required, we arrange samples so you can evaluate the product, materials, finish, packaging and overall quality before bulk production.',
-  },
-  {
-    title: 'Bulk Production',
-    text: 'After approval, we coordinate the order with the selected supplier and follow production progress.',
-  },
-  {
-    title: 'Quality Control',
-    text: 'Inspection can be arranged before shipment to check the finished goods against agreed requirements.',
-  },
-  {
-    title: 'Consolidation',
-    text: 'Buying from multiple suppliers? Products can be collected and consolidated according to your shipping requirements.',
-  },
-  {
-    title: 'Shipping',
-    text: 'We coordinate suitable shipping options and help move the finished order from China to your destination.',
-  },
-]
-
-const sourcingGallery = [
-  {
-    title: 'Custom Jewelry & Packaging',
-    caption: 'Premium quality Fashion jewelry with branded packaging',
-    folder: 'jewelry-packaging',
-  },
-  {
-    title: 'Baby Silicone Products',
-    caption: 'Baby Silicone Products',
-    folder: 'baby-silicone',
-  },
-  {
-    title: 'Hair & Lifestyle Accessories',
-    caption: 'Hair accessories',
-    folder: 'hair-lifestyle',
-  },
-  {
-    title: 'Pet Products',
-    caption: 'Dog Products',
-    folder: 'pet-products',
-  },
-  {
-    title: 'Jewelry Gift Box',
-    caption: 'Gift Boxes for Jewelry',
-    folder: 'jewelry-gift-box',
-  },
-  {
-    title: 'Quality Inspection',
-    caption: 'Jewelry packaging boxes',
-    folder: 'quality-inspection',
-  },
-  {
-    title: 'Shipment Consolidation',
-    caption: 'Products from multiple suppliers, consolidated and Quality Inspection done',
-    folder: 'shipment-consolidation',
-  },
-  {
-    title: 'Export Cartons',
-    caption: 'Finished orders packed and ready for shipment',
-    folder: 'export-cartons',
-  },
-  {
-    title: 'Mixed Product Sourcing',
-    caption: 'Client feedback and discussions',
-    folder: 'mixed-sourcing',
-  },
-]
 
 function galleryImageCandidates(folder) {
   return [1, 2, 3, 4, 5, 6, 7, 8].map((n) => {
@@ -200,218 +17,6 @@ function galleryImageCandidates(folder) {
     )
   })
 }
-
-const faqs = [
-  {
-    q: 'Can I source multiple product categories in one project?',
-    a: 'Yes. This is one of the main reasons businesses work with Nexofetch. We can coordinate different suppliers for different products and consolidate finished goods when required.',
-  },
-  {
-    q: 'Can you work with suppliers I already use?',
-    a: 'Yes. If you already have trusted suppliers, we can coordinate with them while sourcing additional products or suppliers for the rest of your order.',
-  },
-  {
-    q: 'Can you develop custom products?',
-    a: 'Yes. Depending on the product, we can coordinate custom colours, materials, dimensions, logos, packaging, mould development and OEM/ODM manufacturing.',
-  },
-  {
-    q: 'Can you support private-label products?',
-    a: 'Yes. We regularly coordinate logo printing, engraving, labels, retail packaging, custom boxes and other private-label requirements.',
-  },
-  {
-    q: 'How do you check product quality?',
-    a: 'Samples can be arranged before bulk production, and quality inspection can be coordinated before shipment. Inspection requirements depend on the product and order.',
-  },
-  {
-    q: 'Can you consolidate products from different suppliers?',
-    a: 'Yes. Goods from different suppliers can be collected and consolidated before international shipment, helping simplify multi-product orders.',
-  },
-  {
-    q: 'Can you arrange international shipping?',
-    a: 'Yes. We can coordinate shipping options based on your destination, shipment size, timeline and requirements.',
-  },
-  {
-    q: 'Can I start with smaller quantities?',
-    a: 'In many categories, yes. MOQ depends on the product, supplier and level of customisation. Tell us your target quantity and we will look for suitable options.',
-  },
-  {
-    q: "How are Nexofetch's service fees charged?",
-    a: 'Our sourcing fee is charged separately from the product cost and is based on the total purchase amount. The fee structure is shown below, so you know our service charge before placing an order.',
-  },
-]
-
-const feeTiers = [
-  { amount: 'Less than $1,000', charge: '$100' },
-  { amount: '$1,001–$3,000', charge: '10%' },
-  { amount: '$3,001–$6,000', charge: '9%' },
-  { amount: '$6,001–$10,000', charge: '8%' },
-  { amount: '$10,001–$15,000', charge: '7%' },
-  { amount: '$15,001–$20,000', charge: '6.5%' },
-  { amount: '$20,001 upwards', charge: '6%' },
-]
-
-const testimonials = [
-  {
-    quote:
-      'I ordered mixed categories—dog toys, a kids yoga mat and a sushi kit. Nexofetch sourced from different suppliers, consolidated into one shipment, handled Amazon labelling and compared sea vs air freight for me.',
-    name: 'Emily Walsh',
-    location: 'Sydney, Australia',
-    type: 'Amazon seller',
-  },
-  {
-    quote:
-      'We have placed multiple orders and always received premium-quality goods. They are transparent about jewelry base materials—which is not common when sourcing from China.',
-    name: 'Zuzana Kováčová',
-    location: 'Slovakia',
-    type: 'Online jewelry store',
-  },
-  {
-    quote:
-      'I manufacture my own jewelry designs. Nexofetch gives competitive manufacturing prices, pays attention to detail, and offers customized packaging for my brand.',
-    name: 'Kata Nagy',
-    location: 'Hungary',
-    type: 'Fashion jewelry brand',
-  },
-  {
-    quote:
-      'They supported me with low MOQs when I started, then helped with branding on baby silicone products. Detailed attention to colours, design and quality.',
-    name: 'Sophie Mitchell',
-    location: 'Australia',
-    type: 'Baby products brand',
-  },
-]
-
-const heroChecks = [
-  'Source multiple product categories',
-  'Supplier sourcing & factory evaluation',
-  'Custom branding & packaging',
-  'Quality inspection before shipment',
-  'Consolidate products from multiple suppliers',
-  'Shipping & logistics coordination',
-]
-
-const valueProps = [
-  {
-    title: 'Multiple Categories',
-    text: 'Source different products through one purchasing team.',
-  },
-  {
-    title: 'One Consolidated Shipment',
-    text: 'Combine goods from multiple suppliers before shipping.',
-  },
-  {
-    title: 'One Point of Contact',
-    text: 'One Nexofetch team coordinates suppliers, samples, production and logistics.',
-  },
-]
-
-const trustBlocks = [
-  {
-    title: 'Verified Manufacturers',
-    text: 'You work with suppliers that have been checked for capability and reliability before placing an order.',
-  },
-  {
-    title: 'Transparent Communication',
-    text: 'You stay informed at every stage — from quotations and samples through production and shipment — without chasing factories yourself.',
-  },
-  {
-    title: 'Independent Quality Checks',
-    text: 'You can have finished goods inspected before shipment, so problems are caught before products leave China.',
-  },
-  {
-    title: 'Custom Manufacturing Support',
-    text: 'You can develop private-label products, custom packaging and branding without managing factories on your own.',
-  },
-  {
-    title: 'Shipping Coordination',
-    text: 'Your order is organised from consolidation to international delivery, so you are not left handling logistics alone.',
-  },
-]
-
-const europeanImporterCards = [
-  {
-    title: 'Supplier Verification',
-    text: 'We check supplier legitimacy, production capability and communication reliability before you commit to an order.',
-  },
-  {
-    title: 'Factory Audits',
-    text: 'Where required, we help arrange factory checks so you understand how and where your products will be made.',
-  },
-  {
-    title: 'Quality Inspection',
-    text: 'Finished goods can be inspected before shipment, so quality issues are identified before products leave China.',
-  },
-  {
-    title: 'CE / REACH / RoHS Support',
-    text: 'We help coordinate documentation and supplier requirements relevant to European compliance expectations.',
-  },
-  {
-    title: 'Shipping & Customs Coordination',
-    text: 'We support shipping arrangements and help organise the documents needed for smoother international delivery.',
-  },
-  {
-    title: 'Clear Communication Throughout Production',
-    text: 'You receive clear updates from quotation and sampling through production, inspection and shipment.',
-  },
-]
-
-const complianceSupport = [
-  'CE Documentation',
-  'RoHS',
-  'REACH',
-  'Packaging Requirements',
-  'Product Documentation',
-  'Import Documentation',
-]
-
-const compareSelf = [
-  'Finding suppliers individually',
-  'Communicating with every factory',
-  'Comparing quotations yourself',
-  'Following different production schedules',
-  'Coordinating packaging separately',
-  'Checking quality remotely',
-  'Arranging multiple shipments',
-  'Resolving supplier issues from overseas',
-]
-
-const compareNexo = [
-  'One sourcing contact in China',
-  'Suppliers sourced and evaluated',
-  'We compare prices and you receive the most competitive price',
-  'Production followed locally',
-  'Branding and packaging coordinated',
-  'Quality inspection options',
-  'Multiple orders consolidated',
-  'Shipping and logistics coordinated',
-]
-
-const heroImages = [
-  {
-    src: '/uploads/hero/plush-teddy.png',
-    alt: 'Cute teddy bear plush toy',
-  },
-  {
-    src: '/hero/stainless-steel-jewelry.png',
-    alt: 'Stainless steel jewelry',
-  },
-  {
-    src: '/uploads/hero/jewelry-packaging.png',
-    alt: 'Small jewelry boxes with logo printing',
-  },
-  {
-    src: '/uploads/hero/baby-silicone.png',
-    alt: 'Baby silicone feeding sets',
-  },
-  {
-    src: '/uploads/hero/dog-toy.png',
-    alt: 'Dog toys and pet accessories',
-  },
-  {
-    src: '/uploads/hero/hairclips.png',
-    alt: 'Hair clips and hair accessories',
-  },
-]
 
 function CheckIcon() {
   return (
@@ -484,8 +89,9 @@ function Reveal({ as: Tag = 'div', className = '', children }) {
 }
 
 function MidCta({ label, text, variant = 'soft', href = '#consult', external = false }) {
+  const { t } = useLanguage()
   return (
-    <section className={`mid-cta mid-cta-${variant}`} aria-label="Call to action">
+    <section className={`mid-cta mid-cta-${variant}`} aria-label={t.aria.cta}>
       <div className="wrap mid-cta-inner">
         <p>{text}</p>
         <a
@@ -588,6 +194,7 @@ function GallerySlideshow({ title, folder, stagger = 0 }) {
 }
 
 export default function App() {
+  const { t } = useLanguage()
   const [form, setForm] = useState({
     name: '',
     email: '',
@@ -647,32 +254,37 @@ export default function App() {
       <div className="site thank-you-page">
         <header className="header thank-you-header">
           <div className="wrap header-inner">
-            <a className="logo" href="#top" onClick={() => setShowThankYou(false)} aria-label="Nexofetch home">
+            <a
+              className="logo"
+              href="#top"
+              onClick={() => setShowThankYou(false)}
+              aria-label={t.aria.home}
+            >
               <img className="logo-img" src="/nexofetch-logo.png" alt="Nexofetch" loading="eager" />
             </a>
+            <LanguageSwitcher />
           </div>
         </header>
         <main className="thank-you">
           <div className="wrap thank-you-inner">
-            <p className="eyebrow">Enquiry received</p>
-            <h1>Thank You</h1>
-            <p>
-              Your sourcing enquiry has been sent successfully. Our team will review your
-              requirements and get back to you shortly.
-            </p>
+            <p className="eyebrow">{t.thankYou.eyebrow}</p>
+            <h1>{t.thankYou.title}</h1>
+            <p>{t.thankYou.text}</p>
             <div className="cta-row thank-you-actions">
               <a className="btn btn-primary" href={WHATSAPP} target="_blank" rel="noreferrer">
-                Talk to Us on WhatsApp
+                {t.thankYou.whatsapp}
               </a>
               <button className="btn btn-outline" type="button" onClick={() => setShowThankYou(false)}>
-                Back to Landing Page
+                {t.thankYou.back}
               </button>
             </div>
           </div>
         </main>
         <footer className="footer">
           <div className="wrap footer-inner">
-            <p>© {new Date().getFullYear()} Nexofetch. Your purchasing team in China.</p>
+            <p>
+              © {new Date().getFullYear()} Nexofetch. {t.footer.tagline}
+            </p>
             <p>
               <a href="https://nexofetch.com/" target="_blank" rel="noreferrer">
                 nexofetch.com
@@ -684,20 +296,31 @@ export default function App() {
     )
   }
 
+  const products = t.products.items.map((product, index) => ({
+    ...product,
+    image: productImages[index],
+  }))
+
+  const sourcingGallery = t.gallery.items.map((item, index) => ({
+    ...item,
+    folder: galleryFolders[index],
+  }))
+
   return (
     <div className="site">
       <header className="header">
         <div className="wrap header-inner">
-          <a className="logo" href="#top" aria-label="Nexofetch home">
+          <a className="logo" href="#top" aria-label={t.aria.home}>
             <img className="logo-img" src="/nexofetch-logo.png" alt="Nexofetch" loading="eager" />
           </a>
           <div className="header-actions">
+            <LanguageSwitcher />
             <a className="header-link" href={WHATSAPP} target="_blank" rel="noreferrer">
-              WhatsApp
+              {t.header.whatsapp}
             </a>
-            <span className="header-email">Email us at: contact@nexofetch.com</span>
+            <span className="header-email">{t.header.email}</span>
             <a className="btn btn-primary header-btn" href="#consult">
-              Get a Free Consultation
+              {t.header.cta}
             </a>
           </div>
         </div>
@@ -707,18 +330,12 @@ export default function App() {
         <section className="hero">
           <div className="wrap hero-grid">
             <div className="hero-content">
-              <p className="hero-eyebrow">
-                Sourcing • Quality Control • Consolidation • Shipping
-              </p>
-              <h1>Your Purchasing Team in China</h1>
-              <p className="hero-subhead">Source Multiple Products. Manage One Partner.</p>
-              <p className="hero-lead">
-                From jewelry and hair accessories to packaging, baby products, pet accessories and
-                lifestyle goods — Nexofetch helps growing European brands source from China without
-                managing multiple factories and suppliers themselves.
-              </p>
+              <p className="hero-eyebrow">{t.hero.eyebrow}</p>
+              <h1>{t.hero.title}</h1>
+              <p className="hero-subhead">{t.hero.subhead}</p>
+              <p className="hero-lead">{t.hero.lead}</p>
               <ul className="hero-checks">
-                {heroChecks.map((item) => (
+                {t.hero.checks.map((item) => (
                   <li key={item}>
                     <CheckIcon /> {item}
                   </li>
@@ -726,16 +343,13 @@ export default function App() {
               </ul>
               <div className="cta-row">
                 <a className="btn btn-primary" href="#consult">
-                  {PRIMARY_CTA}
+                  {t.hero.ctaPrimary}
                 </a>
                 <a className="btn btn-outline" href={WHATSAPP} target="_blank" rel="noreferrer">
-                  Talk to Us on WhatsApp
+                  {t.hero.ctaWhatsapp}
                 </a>
               </div>
-              <p className="hero-qualify">
-                For brands, retailers, e-commerce businesses and wholesalers sourcing commercially
-                from China.
-              </p>
+              <p className="hero-qualify">{t.hero.qualify}</p>
             </div>
             <div className="hero-visual" aria-hidden="true">
               <div className="hero-mosaic">
@@ -749,9 +363,9 @@ export default function App() {
           </div>
         </section>
 
-        <section className="value-strip" aria-label="Key advantages">
+        <section className="value-strip" aria-label={t.aria.keyAdvantages}>
           <div className="wrap value-grid">
-            {valueProps.map((item, index) => (
+            {t.valueStrip.map((item, index) => (
               <div className="value-item" key={item.title}>
                 <ValueIcon index={index} />
                 <h3>{item.title}</h3>
@@ -764,34 +378,23 @@ export default function App() {
         <section className="section help" id="who-we-help">
           <div className="wrap">
             <Reveal className="section-head">
-              <span className="eyebrow">Who we work with</span>
-              <h2>Built for Growing Brands That Source From China</h2>
-              <p>
-                You may not need your own purchasing office in China. But once you start working with
-                multiple suppliers, product categories and repeat orders, managing everything from
-                overseas becomes difficult.
-              </p>
-              <p style={{ marginTop: '0.75rem' }}>
-                Nexofetch gives you one team on the ground to coordinate it.
-              </p>
+              <span className="eyebrow">{t.whoWeHelp.eyebrow}</span>
+              <h2>{t.whoWeHelp.title}</h2>
+              <p>{t.whoWeHelp.p1}</p>
+              <p style={{ marginTop: '0.75rem' }}>{t.whoWeHelp.p2}</p>
             </Reveal>
             <Reveal>
-              <p style={{ marginBottom: '1rem', fontWeight: 600 }}>We work with:</p>
+              <p style={{ marginBottom: '1rem', fontWeight: 600 }}>{t.whoWeHelp.weWorkWith}</p>
               <ul className="audience-grid">
-                {audiences.map((item) => (
+                {t.whoWeHelp.audiences.map((item) => (
                   <li className="audience-item" key={item}>
                     {item}
                   </li>
                 ))}
               </ul>
               <div className="help-note">
-                <strong>
-                  Already sourcing one product from China but want to expand into more categories?
-                </strong>
-                <p>
-                  You do not need to find and manage a new supplier every time. Tell us what you want
-                  to add and our team can handle the sourcing and coordination.
-                </p>
+                <strong>{t.whoWeHelp.noteTitle}</strong>
+                <p>{t.whoWeHelp.noteText}</p>
               </div>
             </Reveal>
           </div>
@@ -799,20 +402,16 @@ export default function App() {
 
         <MidCta
           variant="soft"
-          label="Get Free Sourcing Consultation"
-          text="Tell us the products that you want to source from China."
+          label={t.midCta.consult1.label}
+          text={t.midCta.consult1.text}
         />
 
         <section className="section products" id="products">
           <div className="wrap">
             <Reveal className="section-head">
-              <span className="eyebrow">Products</span>
-              <h2>Source Multiple Product Categories Through One Team</h2>
-              <p>
-                Build or expand your product range without managing a separate sourcing process for
-                every category. We source across multiple consumer-product categories and can
-                consolidate goods from different suppliers into one shipment.
-              </p>
+              <span className="eyebrow">{t.products.eyebrow}</span>
+              <h2>{t.products.title}</h2>
+              <p>{t.products.desc}</p>
             </Reveal>
             <div className="product-grid">
               {products.map((product) => (
@@ -836,8 +435,8 @@ export default function App() {
 
         <MidCta
           variant="dark"
-          label="Talk to a Sourcing Expert"
-          text="Share the categories you need and we will recommend suitable next steps."
+          label={t.midCta.expert1.label}
+          text={t.midCta.expert1.text}
           href={WHATSAPP}
           external
         />
@@ -845,12 +444,12 @@ export default function App() {
         <section className="section pain" id="problems">
           <div className="wrap pain-layout">
             <Reveal>
-              <span className="eyebrow">The challenge of sourcing from China</span>
+              <span className="eyebrow">{t.pain.eyebrow}</span>
               <h2 style={{ fontSize: 'clamp(1.85rem, 3.8vw, 2.75rem)', marginBottom: '1.5rem' }}>
-                Does Managing Suppliers Feel Like Another Full-Time Job?
+                {t.pain.title}
               </h2>
               <ul className="pain-list">
-                {pains.map((item, index) => (
+                {t.pain.pains.map((item, index) => (
                   <li key={item}>
                     <span className="pain-index">{String(index + 1).padStart(2, '0')}</span>
                     <span>{item}</span>
@@ -859,14 +458,10 @@ export default function App() {
               </ul>
             </Reveal>
             <Reveal className="pain-aside">
-              <h3>This is where Nexofetch comes in.</h3>
-              <p>
-                We act as your purchasing team on the ground in China — coordinating suppliers,
-                quotations, samples, production, quality control and logistics while you focus on
-                selling and growing your brand.
-              </p>
+              <h3>{t.pain.asideTitle}</h3>
+              <p>{t.pain.asideText}</p>
               <a className="btn btn-primary" href="#consult">
-                Tell Us What You Need to Source
+                {t.pain.cta}
               </a>
             </Reveal>
           </div>
@@ -875,46 +470,39 @@ export default function App() {
         <section className="section why" id="why-nexofetch">
           <div className="wrap">
             <Reveal className="section-head">
-              <span className="eyebrow">What you receive</span>
-              <h2>One Team Managing Your Sourcing From Start to Shipment</h2>
-              <p>
-                Instead of coordinating factories, packaging suppliers, inspectors and freight
-                separately, Nexofetch manages the sourcing process through one point of contact.
-              </p>
+              <span className="eyebrow">{t.why.eyebrow}</span>
+              <h2>{t.why.title}</h2>
+              <p>{t.why.desc}</p>
             </Reveal>
             <Reveal className="why-grid">
-              {includes.map((item) => (
+              {t.why.includes.map((item) => (
                 <div className="why-item" key={item}>
                   {item}
                 </div>
               ))}
             </Reveal>
             <Reveal className="why-note">
-              <strong>Need several different products?</strong>
-              <p>
-                That is exactly where our model becomes most useful. We can source products from
-                different suppliers, coordinate them separately and consolidate the finished goods
-                before shipment.
-              </p>
+              <strong>{t.why.noteTitle}</strong>
+              <p>{t.why.noteText}</p>
             </Reveal>
           </div>
         </section>
 
         <MidCta
           variant="soft"
-          label="Request Supplier Verification"
-          text="Tell us what you need handled and we will explain how we can support your project."
+          label={t.midCta.verify.label}
+          text={t.midCta.verify.text}
         />
 
         <section className="section process" id="process">
           <div className="wrap">
             <Reveal className="section-head">
-              <span className="eyebrow">Our process</span>
-              <h2>From Product Idea to Delivered Order</h2>
-              <p>A clear path from your first brief through production and delivery.</p>
+              <span className="eyebrow">{t.process.eyebrow}</span>
+              <h2>{t.process.title}</h2>
+              <p>{t.process.desc}</p>
             </Reveal>
             <Reveal className="timeline">
-              {steps.map((step, index) => (
+              {t.process.steps.map((step, index) => (
                 <div className="step" key={step.title}>
                   <div className="step-marker">{index + 1}</div>
                   <div>
@@ -929,19 +517,16 @@ export default function App() {
 
         <MidCta
           variant="dark"
-          label="Start Your Sourcing Project"
-          text="Ready to begin? Send your requirements and we will outline the first sourcing steps."
+          label={t.midCta.start1.label}
+          text={t.midCta.start1.text}
         />
 
         <section className="section projects" id="projects">
           <div className="wrap">
             <Reveal className="section-head">
-              <span className="eyebrow">Real sourcing work</span>
-              <h2>Our Sourcing Gallery</h2>
-              <p>
-                A look at products, packaging and shipments we&apos;ve recently handled for clients
-                sourcing from China.
-              </p>
+              <span className="eyebrow">{t.gallery.eyebrow}</span>
+              <h2>{t.gallery.title}</h2>
+              <p>{t.gallery.desc}</p>
             </Reveal>
             <div className="gallery-grid">
               {sourcingGallery.map((item, galleryIndex) => (
@@ -956,10 +541,10 @@ export default function App() {
               ))}
             </div>
             <Reveal className="projects-cta">
-              <p>... and many more. Get in touch with us to check actual variety. Real products. Real packaging. Real shipments handled by our team in China.</p>
-              <p>Have Something Similar to Source? Just send us a reference image and we will source it for you.</p>
+              <p>{t.gallery.trustLine}</p>
+              <p>{t.gallery.ctaLine}</p>
               <a className="btn btn-primary" href="#consult">
-                Get a Free Sourcing Consultation
+                {t.gallery.ctaButton}
               </a>
             </Reveal>
           </div>
@@ -968,11 +553,11 @@ export default function App() {
         <section className="section trust" id="trust">
           <div className="wrap">
             <Reveal className="section-head">
-              <span className="eyebrow">Why work with us</span>
-              <h2>Why Growing Brands Use Nexofetch as Their China Purchasing Team</h2>
+              <span className="eyebrow">{t.trust.eyebrow}</span>
+              <h2>{t.trust.title}</h2>
             </Reveal>
             <div className="trust-grid">
-              {trustBlocks.map((item) => (
+              {t.trust.blocks.map((item) => (
                 <Reveal className="trust-item" key={item.title}>
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
@@ -985,11 +570,11 @@ export default function App() {
         <section className="section europe" id="european-importers">
           <div className="wrap">
             <Reveal className="section-head">
-              <span className="eyebrow">For European buyers</span>
-              <h2>Built for European Importers</h2>
+              <span className="eyebrow">{t.europe.eyebrow}</span>
+              <h2>{t.europe.title}</h2>
             </Reveal>
             <div className="europe-grid">
-              {europeanImporterCards.map((item) => (
+              {t.europe.cards.map((item) => (
                 <Reveal className="europe-card" key={item.title}>
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
@@ -997,38 +582,32 @@ export default function App() {
               ))}
             </div>
             <Reveal className="europe-note">
-              <p>
-                We help European businesses reduce sourcing risks while keeping projects organised
-                from supplier selection to final delivery.
-              </p>
+              <p>{t.europe.note}</p>
             </Reveal>
           </div>
         </section>
 
         <MidCta
           variant="dark"
-          label="Request Product Pricing"
-          text="Ask us how we can support your European import requirements."
+          label={t.midCta.pricing.label}
+          text={t.midCta.pricing.text}
         />
 
         <section className="section compliance" id="compliance">
           <div className="wrap">
             <Reveal className="section-head">
-              <span className="eyebrow">Documentation</span>
-              <h2>Compliance &amp; Documentation Support</h2>
+              <span className="eyebrow">{t.compliance.eyebrow}</span>
+              <h2>{t.compliance.title}</h2>
             </Reveal>
             <Reveal className="compliance-grid">
-              {complianceSupport.map((item) => (
+              {t.compliance.items.map((item) => (
                 <div className="compliance-item" key={item}>
                   {item}
                 </div>
               ))}
             </Reveal>
             <Reveal className="compliance-disclaimer">
-              <p>
-                Compliance requirements depend on the product category and manufacturer. Nexofetch
-                assists customers in coordinating the required documentation.
-              </p>
+              <p>{t.compliance.disclaimer}</p>
             </Reveal>
           </div>
         </section>
@@ -1036,48 +615,48 @@ export default function App() {
         <section className="section compare" id="compare">
           <div className="wrap">
             <Reveal className="section-head">
-              <span className="eyebrow">Why use a purchasing partner?</span>
-              <h2>One Team Instead of Managing Every Supplier Yourself</h2>
+              <span className="eyebrow">{t.compare.eyebrow}</span>
+              <h2>{t.compare.title}</h2>
             </Reveal>
             <Reveal className="compare-grid">
               <div className="compare-col compare-self">
-                <h3>Sourcing Yourself</h3>
+                <h3>{t.compare.selfTitle}</h3>
                 <ul>
-                  {compareSelf.map((item) => (
+                  {t.compare.self.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
               </div>
               <div className="compare-col compare-nexo">
-                <h3>Working With Nexofetch</h3>
+                <h3>{t.compare.nexoTitle}</h3>
                 <ul>
-                  {compareNexo.map((item) => (
+                  {t.compare.nexo.map((item) => (
                     <li key={item}>{item}</li>
                   ))}
                 </ul>
               </div>
             </Reveal>
             <Reveal className="compare-note">
-              <p>You stay in control of purchasing decisions. We handle the coordination.</p>
+              <p>{t.compare.note}</p>
             </Reveal>
           </div>
         </section>
 
         <MidCta
           variant="soft"
-          label="Start Your Sourcing Project"
-          text="Prefer one purchasing partner in China? Tell us what you want to source."
+          label={t.midCta.start2.label}
+          text={t.midCta.start2.text}
         />
 
         <section className="section faq" id="faq">
           <div className="wrap">
             <Reveal className="section-head">
-              <span className="eyebrow">FAQ</span>
-              <h2>Common Questions</h2>
-              <p>What buyers usually want to know before getting started.</p>
+              <span className="eyebrow">{t.faq.eyebrow}</span>
+              <h2>{t.faq.title}</h2>
+              <p>{t.faq.desc}</p>
             </Reveal>
             <Reveal className="faq-list">
-              {faqs.map((item) => (
+              {t.faq.items.map((item) => (
                 <details className="faq-item" key={item.q}>
                   <summary>{item.q}</summary>
                   <p>{item.a}</p>
@@ -1089,19 +668,19 @@ export default function App() {
 
         <MidCta
           variant="dark"
-          label="Get Free Sourcing Consultation"
-          text="Still have questions? Send your product details and we will reply with clear next steps."
+          label={t.midCta.consult2.label}
+          text={t.midCta.consult2.text}
         />
 
         <section className="section testimonials" id="testimonials">
           <div className="wrap">
             <Reveal className="section-head">
-              <span className="eyebrow">Testimonials</span>
-              <h2>What Our Clients Say</h2>
-              <p>Feedback from brands and sellers who source with Nexofetch.</p>
+              <span className="eyebrow">{t.testimonials.eyebrow}</span>
+              <h2>{t.testimonials.title}</h2>
+              <p>{t.testimonials.desc}</p>
             </Reveal>
             <div className="testimonial-grid">
-              {testimonials.map((item) => (
+              {t.testimonials.items.map((item) => (
                 <Reveal className="testimonial-card" key={item.name}>
                   <p className="testimonial-quote">{item.quote}</p>
                   <div className="testimonial-author">
@@ -1117,8 +696,8 @@ export default function App() {
 
         <MidCta
           variant="light"
-          label="Talk to a Sourcing Expert"
-          text="Join brands already sourcing with Nexofetch — submit your enquiry today."
+          label={t.midCta.expert2.label}
+          text={t.midCta.expert2.text}
           href={WHATSAPP}
           external
         />
@@ -1126,28 +705,21 @@ export default function App() {
         <section className="section fees" id="fees">
           <div className="wrap fees-inner">
             <Reveal className="section-head fees-head">
-              <span className="eyebrow">Pricing</span>
-              <h2>Transparent Sourcing Fees</h2>
-              <p>
-                Our service fee is separate from the product price, so you can clearly see what you
-                are paying for sourcing and project management.
-              </p>
-              <p style={{ marginTop: '0.75rem' }}>
-                Your fee covers support such as supplier sourcing, quotation comparison,
-                negotiation, branding coordination, production follow-up, consolidation and logistics
-                coordination.
-              </p>
+              <span className="eyebrow">{t.fees.eyebrow}</span>
+              <h2>{t.fees.title}</h2>
+              <p>{t.fees.p1}</p>
+              <p style={{ marginTop: '0.75rem' }}>{t.fees.p2}</p>
             </Reveal>
             <Reveal className="fees-table-wrap">
               <table className="fees-table">
                 <thead>
                   <tr>
-                    <th scope="col">Order Amount</th>
-                    <th scope="col">Service Charge</th>
+                    <th scope="col">{t.fees.orderAmount}</th>
+                    <th scope="col">{t.fees.serviceCharge}</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {feeTiers.map((tier) => (
+                  {t.fees.tiers.map((tier) => (
                     <tr key={tier.amount}>
                       <td>{tier.amount}</td>
                       <td>{tier.charge}</td>
@@ -1158,13 +730,9 @@ export default function App() {
             </Reveal>
             <Reveal className="fees-notes">
               <p>
-                <strong>
-                  No additional sourcing fee for adding more product categories to the same project.
-                </strong>
+                <strong>{t.fees.note1}</strong>
               </p>
-              <p>
-                You only pay our sourcing service fee when you proceed with a sample or bulk purchase.
-              </p>
+              <p>{t.fees.note2}</p>
             </Reveal>
           </div>
         </section>
@@ -1172,117 +740,110 @@ export default function App() {
         <section className="section final" id="consult">
           <div className="wrap final-grid">
             <Reveal>
-              <h2>Tell Us What You Want to Source</h2>
-              <p>
-                Whether you are adding a new product, sourcing an entire collection or buying from
-                several suppliers, send us your requirements.
-              </p>
-              <p>
-                A reference photo or product link, estimated quantity and destination country are
-                enough to get started.
-              </p>
+              <h2>{t.form.title}</h2>
+              <p>{t.form.p1}</p>
+              <p>{t.form.p2}</p>
               <ol className="final-steps">
-                <li>Send your requirement</li>
-                <li>We review the project</li>
-                <li>We come back with the next sourcing steps</li>
+                {t.form.steps.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
               </ol>
               <div className="final-links">
                 <a href={WHATSAPP} target="_blank" rel="noreferrer">
-                  WhatsApp: +86 133 0563 1958
+                  {t.form.whatsappLink}
                 </a>
-                <a href={EMAIL}>Email: contact@nexofetch.com</a>
+                <a href={EMAIL}>{t.form.emailLink}</a>
               </div>
             </Reveal>
 
             <Reveal>
               <form className="final-form" onSubmit={handleConsult}>
                 <label>
-                  Name
+                  {t.form.name}
                   <input
                     name="name"
                     value={form.name}
                     onChange={updateField}
-                    placeholder="Your name"
+                    placeholder={t.form.namePh}
                     required
                   />
                 </label>
                 <label>
-                  Email
+                  {t.form.email}
                   <input
                     type="email"
                     name="email"
                     value={form.email}
                     onChange={updateField}
-                    placeholder="you@company.com"
+                    placeholder={t.form.emailPh}
                     required
                   />
                 </label>
                 <label>
-                  WhatsApp
+                  {t.form.whatsapp}
                   <input
                     name="whatsapp"
                     value={form.whatsapp}
                     onChange={updateField}
-                    placeholder="+ country code and number"
+                    placeholder={t.form.whatsappPh}
                     required
                   />
                 </label>
                 <label>
-                  Destination Country
+                  {t.form.country}
                   <input
                     name="country"
                     value={form.country}
                     onChange={updateField}
-                    placeholder="e.g. Germany, Australia, UK"
+                    placeholder={t.form.countryPh}
                     required
                   />
                 </label>
                 <label>
-                  What would you like to source?
+                  {t.form.message}
                   <textarea
                     name="message"
                     value={form.message}
                     onChange={updateField}
-                    placeholder="Tell us the product, estimated quantity, customisation requirements and any target pricing you have."
+                    placeholder={t.form.messagePh}
                     required
                   />
                 </label>
                 <div className="final-actions">
                   <button className="btn btn-primary" type="submit" disabled={formStatus === 'sending'}>
-                    {formStatus === 'sending' ? 'Sending…' : 'Get My Sourcing Consultation'}
+                    {formStatus === 'sending' ? t.form.sending : t.form.submit}
                   </button>
                   <a className="btn btn-ghost" href={WHATSAPP} target="_blank" rel="noreferrer">
-                    Talk to Us on WhatsApp
+                    {t.hero.ctaWhatsapp}
                   </a>
                 </div>
                 {formStatus === 'error' && (
                   <p className="final-form-status is-error">
-                    Something went wrong sending your enquiry. Please email us directly at{' '}
-                    <a href={EMAIL}>{CONTACT_EMAIL}</a> or try WhatsApp.
+                    {t.form.error}{' '}
+                    <a href={EMAIL}>{CONTACT_EMAIL}</a>
                   </p>
                 )}
-                <p className="final-disclaimer">
-                  No obligation to place an order. We will first review your requirement and explain
-                  how we can help.
-                </p>
+                <p className="final-disclaimer">{t.form.disclaimer}</p>
               </form>
             </Reveal>
           </div>
         </section>
       </main>
 
-      <div className="mobile-sticky" aria-label="Quick contact">
+      <div className="mobile-sticky" aria-label={t.aria.quickContact}>
         <a className="btn btn-primary" href="#consult">
-          Get a Free Consultation
+          {t.mobileSticky.consult}
         </a>
         <a className="btn btn-outline sticky-wa" href={WHATSAPP} target="_blank" rel="noreferrer">
-          WhatsApp
+          {t.mobileSticky.whatsapp}
         </a>
       </div>
 
       <footer className="footer">
         <div className="wrap footer-inner">
-          <p>© {new Date().getFullYear()} Nexofetch. Your purchasing team in China.</p>
+          <p>
+            © {new Date().getFullYear()} Nexofetch. {t.footer.tagline}
+          </p>
           <p>
             <a href="https://nexofetch.com/" target="_blank" rel="noreferrer">
               nexofetch.com
