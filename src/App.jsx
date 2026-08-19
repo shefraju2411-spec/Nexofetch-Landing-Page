@@ -363,6 +363,98 @@ export default function App() {
           </div>
         </section>
 
+        <section className="section final" id="consult">
+          <div className="wrap final-grid">
+            <Reveal>
+              <h2>{t.form.title}</h2>
+              <p>{t.form.p1}</p>
+              <p>{t.form.p2}</p>
+              <ol className="final-steps">
+                {t.form.steps.map((step) => (
+                  <li key={step}>{step}</li>
+                ))}
+              </ol>
+              <div className="final-links">
+                <a href={WHATSAPP} target="_blank" rel="noreferrer">
+                  {t.form.whatsappLink}
+                </a>
+                <a href={EMAIL}>{t.form.emailLink}</a>
+              </div>
+            </Reveal>
+
+            <Reveal>
+              <form className="final-form" onSubmit={handleConsult}>
+                <label>
+                  {t.form.name}
+                  <input
+                    name="name"
+                    value={form.name}
+                    onChange={updateField}
+                    placeholder={t.form.namePh}
+                    required
+                  />
+                </label>
+                <label>
+                  {t.form.email}
+                  <input
+                    type="email"
+                    name="email"
+                    value={form.email}
+                    onChange={updateField}
+                    placeholder={t.form.emailPh}
+                    required
+                  />
+                </label>
+                <label>
+                  {t.form.whatsapp}
+                  <input
+                    name="whatsapp"
+                    value={form.whatsapp}
+                    onChange={updateField}
+                    placeholder={t.form.whatsappPh}
+                    required
+                  />
+                </label>
+                <label>
+                  {t.form.country}
+                  <input
+                    name="country"
+                    value={form.country}
+                    onChange={updateField}
+                    placeholder={t.form.countryPh}
+                    required
+                  />
+                </label>
+                <label>
+                  {t.form.message}
+                  <textarea
+                    name="message"
+                    value={form.message}
+                    onChange={updateField}
+                    placeholder={t.form.messagePh}
+                    required
+                  />
+                </label>
+                <div className="final-actions">
+                  <button className="btn btn-primary" type="submit" disabled={formStatus === 'sending'}>
+                    {formStatus === 'sending' ? t.form.sending : t.form.submit}
+                  </button>
+                  <a className="btn btn-ghost" href={WHATSAPP} target="_blank" rel="noreferrer">
+                    {t.hero.ctaWhatsapp}
+                  </a>
+                </div>
+                {formStatus === 'error' && (
+                  <p className="final-form-status is-error">
+                    {t.form.error}{' '}
+                    <a href={EMAIL}>{CONTACT_EMAIL}</a>
+                  </p>
+                )}
+                <p className="final-disclaimer">{t.form.disclaimer}</p>
+              </form>
+            </Reveal>
+          </div>
+        </section>
+
         <section className="value-strip" aria-label={t.aria.keyAdvantages}>
           <div className="wrap value-grid">
             {t.valueStrip.map((item, index) => (
@@ -737,97 +829,6 @@ export default function App() {
           </div>
         </section>
 
-        <section className="section final" id="consult">
-          <div className="wrap final-grid">
-            <Reveal>
-              <h2>{t.form.title}</h2>
-              <p>{t.form.p1}</p>
-              <p>{t.form.p2}</p>
-              <ol className="final-steps">
-                {t.form.steps.map((step) => (
-                  <li key={step}>{step}</li>
-                ))}
-              </ol>
-              <div className="final-links">
-                <a href={WHATSAPP} target="_blank" rel="noreferrer">
-                  {t.form.whatsappLink}
-                </a>
-                <a href={EMAIL}>{t.form.emailLink}</a>
-              </div>
-            </Reveal>
-
-            <Reveal>
-              <form className="final-form" onSubmit={handleConsult}>
-                <label>
-                  {t.form.name}
-                  <input
-                    name="name"
-                    value={form.name}
-                    onChange={updateField}
-                    placeholder={t.form.namePh}
-                    required
-                  />
-                </label>
-                <label>
-                  {t.form.email}
-                  <input
-                    type="email"
-                    name="email"
-                    value={form.email}
-                    onChange={updateField}
-                    placeholder={t.form.emailPh}
-                    required
-                  />
-                </label>
-                <label>
-                  {t.form.whatsapp}
-                  <input
-                    name="whatsapp"
-                    value={form.whatsapp}
-                    onChange={updateField}
-                    placeholder={t.form.whatsappPh}
-                    required
-                  />
-                </label>
-                <label>
-                  {t.form.country}
-                  <input
-                    name="country"
-                    value={form.country}
-                    onChange={updateField}
-                    placeholder={t.form.countryPh}
-                    required
-                  />
-                </label>
-                <label>
-                  {t.form.message}
-                  <textarea
-                    name="message"
-                    value={form.message}
-                    onChange={updateField}
-                    placeholder={t.form.messagePh}
-                    required
-                  />
-                </label>
-                <div className="final-actions">
-                  <button className="btn btn-primary" type="submit" disabled={formStatus === 'sending'}>
-                    {formStatus === 'sending' ? t.form.sending : t.form.submit}
-                  </button>
-                  <a className="btn btn-ghost" href={WHATSAPP} target="_blank" rel="noreferrer">
-                    {t.hero.ctaWhatsapp}
-                  </a>
-                </div>
-                {formStatus === 'error' && (
-                  <p className="final-form-status is-error">
-                    {t.form.error}{' '}
-                    <a href={EMAIL}>{CONTACT_EMAIL}</a>
-                  </p>
-                )}
-                <p className="final-disclaimer">{t.form.disclaimer}</p>
-              </form>
-            </Reveal>
-          </div>
-        </section>
       </main>
 
       <div className="mobile-sticky" aria-label={t.aria.quickContact}>

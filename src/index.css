@@ -1369,14 +1369,11 @@ ul {
   color: var(--ink);
 }
 
-/* Final CTA */
+/* Inquiry form (below hero) */
 .final {
   position: relative;
-  color: #ffffff;
-  background:
-    linear-gradient(120deg, rgba(45, 46, 47, 0.94), rgba(44, 93, 175, 0.9)),
-    url('https://images.unsplash.com/photo-1578575437130-527eed3abbec?auto=format&fit=crop&w=1800&q=80')
-      center / cover no-repeat;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
 }
 
 .final-grid {
@@ -1389,19 +1386,19 @@ ul {
 .final h2 {
   font-size: clamp(1.9rem, 4vw, 2.8rem);
   margin-bottom: 1rem;
+  color: var(--ink);
 }
 
 .final p {
-  color: rgba(255, 255, 255, 0.82);
+  color: var(--ink-muted);
   margin-bottom: 0.85rem;
   max-width: 36rem;
 }
 
 .final-form {
-  background: rgba(255, 255, 255, 0.08);
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  padding: 1.35rem;
-  backdrop-filter: blur(6px);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  padding: 1.5rem;
 }
 
 .final-form label {
@@ -1410,27 +1407,29 @@ ul {
   margin-bottom: 0.85rem;
   font-size: 0.85rem;
   font-weight: 600;
+  color: var(--ink);
 }
 
 .final-form input,
 .final-form textarea {
   width: 100%;
-  border: 1px solid rgba(255, 255, 255, 0.22);
-  background: rgba(45, 46, 47, 0.35);
-  color: #ffffff;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
   border-radius: var(--radius);
   padding: 0.75rem 0.85rem;
 }
 
 .final-form input::placeholder,
 .final-form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.45);
+  color: var(--ink-muted);
 }
 
 .final-form input:focus,
 .final-form textarea:focus {
-  outline: 2px solid var(--accent);
+  outline: 2px solid var(--accent-blue);
   outline-offset: 1px;
+  border-color: transparent;
 }
 
 .final-form textarea {
@@ -1444,6 +1443,17 @@ ul {
   margin-top: 0.35rem;
 }
 
+.final-form .btn-ghost {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.final-form .btn-ghost:hover {
+  border-color: var(--ink);
+  background: var(--paper);
+}
+
 .final-links {
   display: flex;
   flex-wrap: wrap;
@@ -1453,7 +1463,7 @@ ul {
 }
 
 .final-links a {
-  color: rgba(255, 255, 255, 0.9);
+  color: var(--ink);
   font-weight: 600;
 }
 
@@ -1463,7 +1473,7 @@ ul {
   list-style: none;
   display: grid;
   gap: 0.45rem;
-  color: rgba(255, 255, 255, 0.88);
+  color: var(--ink);
   font-weight: 600;
   font-size: 0.95rem;
 }
@@ -1474,7 +1484,6 @@ ul {
 }
 
 .final-steps li::before {
-  counter-increment: none;
   content: '';
   position: absolute;
   left: 0;
@@ -1488,7 +1497,7 @@ ul {
 .final-disclaimer {
   margin-top: 0.85rem;
   font-size: 0.85rem;
-  color: rgba(255, 255, 255, 0.7) !important;
+  color: var(--ink-muted) !important;
 }
 
 .final-form-status {
@@ -1497,16 +1506,12 @@ ul {
   line-height: 1.5;
 }
 
-.final-form-status.is-success {
-  color: #b7f0c4 !important;
-}
-
 .final-form-status.is-error {
-  color: #ffc9c4 !important;
+  color: var(--accent) !important;
 }
 
 .final-form-status a {
-  color: #fff;
+  color: var(--accent);
   font-weight: 600;
 }
 
